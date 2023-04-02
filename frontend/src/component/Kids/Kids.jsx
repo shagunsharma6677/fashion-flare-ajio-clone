@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import "./Kids.css"
-import Card from './Card'
+import {Card} from "../Card/Card"
 // import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux'
 import { getReduxData } from '../../redux/action'
+import { getProductData } from '../../redux/Products/action'
 
 const Kids = () => {
     const [search, setSearch] = useState("")
     const [box, setBox] = useState(null)
     const dispatch = useDispatch()
-    const store = useSelector(store => store.storeData)
+    const Products = useSelector(store => store.ProductReducer.Products)
 
-    useEffect(() => {
-        if (box) {
-            dispatch(getReduxData(`kid${box}`))
-        }
-    }, [box])
     const handleButton = () => {
         dispatch(getReduxData(`kid${search}`))
         setSearch("")
     }
+    // console.log("Products",Products)
     useEffect(() => {
-        dispatch(getReduxData("kids"))
+        dispatch(getProductData("kid"))
     }, [])
 
     return (
@@ -228,7 +225,7 @@ const Kids = () => {
                         <div>Starting at Rs 129</div>
                         <div>
                             <ul>
-                                <li>{store.length}0 Items Found</li>
+                                <li>{}0 Items Found</li>
                             </ul>
                             <ul>
                                 <input placeholder='Search Here' value={search} onChange={(e) => setSearch(e.target.value)} type="text" />
@@ -248,9 +245,7 @@ const Kids = () => {
                     </div>
                     <div className='kids-content-wrapper'>
                         <div className='kids-content'>
-                            {store?.map((item) => <Card {...item} />)}
-
-
+                            {Products?.map((item) => <Card {...item} />)}
 
                         </div>
 

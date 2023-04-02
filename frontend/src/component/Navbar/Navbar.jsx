@@ -12,8 +12,8 @@ const Navbar = () => {
 
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
-  const store = useSelector(store => store.cart)
-  const wishlist = useSelector(store => store.wishlist)
+  const store = useSelector(store => store.CartReducer.cart)
+  const wishlist = useSelector(store => store.CartReducer.wishlist)
   // console.log(store,"cart")
 
   // console.log(user);
@@ -62,7 +62,7 @@ const Navbar = () => {
         </Box>
         <Box>
           <Flex gap="30px" alignItems={"center"}>
-            <Link to="/mens" onClick={() => setCategory("mens-clothing")}>
+            <Link to="/men" onClick={() => setCategory("mens-clothing")}>
               <Box>
                 <Menuitem
                   navitem={"MEN"}
@@ -170,7 +170,7 @@ const Navbar = () => {
                 />
               </Box>
             </Link>
-            <Link to="/womens" onClick={() => setCategory("women-clothing")}>
+            <Link to="/women" onClick={() => setCategory("women-clothing")}>
               <Box>
                 <Menuitem
                   navitem={"WOMEN"}
@@ -278,7 +278,7 @@ const Navbar = () => {
                 />
               </Box>
             </Link>
-            <Link to="/kids" onClick={() => setCategory("kids-clothing")}>
+            <Link to="/kid" onClick={() => setCategory("kids-clothing")}>
               <Box>
                 <Menuitem
                   navitem={"KIDS"}

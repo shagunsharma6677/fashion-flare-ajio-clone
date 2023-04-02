@@ -1,40 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import "./Mens.css"
-import Card from './Card'
-import { useDispatch, useSelector } from 'react-redux'
-import { getReduxData } from '../../redux/action'
-
+import React, { useEffect, useState } from "react";
+import "./Mens.css";
+// import Card from "./Card";
+import { useDispatch, useSelector } from "react-redux";
+import { getReduxData } from "../../redux/action";
+import { getProductData } from "../../redux/Products/action";
+import { Card } from "../Card/Card";
+import { Link } from "react-router-dom";
 
 const Mens = () => {
-    const [search, setSearch] = useState("")
-    const [box, setBox] = useState(null)
-    const dispatch = useDispatch()
-    const store = useSelector(store => store.storeData)
-
-    useEffect(() => {
-        if (box) {
-            dispatch(getReduxData(`men${box}`))
-        }
-
-    }, [box])
+    const [search, setSearch] = useState("");
+    const [box, setBox] = useState(null);
+    const dispatch = useDispatch();
+    const Products = useSelector(store => store.ProductReducer.Products)
 
     const handleButton = () => {
-        dispatch(getReduxData(`men${search}`))
-
-    }
+        dispatch(getReduxData(`men${search}`));
+    };
 
     useEffect(() => {
-        dispatch(getReduxData("mens"))
+        dispatch(getProductData(`men`))
+
     }, [])
+    //   console.log("Peoducts",Products)
+
     return (
-        <div className='mens-cont'>
+        <div className="mens-cont">
             <div className="mens-wrapper">
-                <div className='mens-left'>
+                <div className="mens-left">
                     {/* <div>
                         Refined By
                     </div> */}
                     <div className="filter-div">
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Gender </li>
                             <ul>
                                 <li>
@@ -44,7 +41,7 @@ const Mens = () => {
                             </ul>
                         </div>
                         {/* <hr /> */}
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Category</li>
                             <ul>
                                 {/* <li>
@@ -69,11 +66,10 @@ const Mens = () => {
                                     <label htmlFor="#">Track Pants</label>
                                 </li>
                             </ul>
-
                         </div>
                         {/* <hr /> */}
 
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Price</li>
                             <ul>
                                 <li>
@@ -98,10 +94,9 @@ const Mens = () => {
                                     <label htmlFor="#">Below Rs 2001-2500</label>
                                 </li>
                             </ul>
-
                         </div>
 
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Brands</li>
                             <ul>
                                 <li>
@@ -126,12 +121,11 @@ const Mens = () => {
                                     <label htmlFor="#">2Go</label>
                                 </li>
                             </ul>
-
                         </div>
 
                         {/* <hr /> */}
 
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Occation</li>
                             <ul>
                                 <li>
@@ -156,12 +150,11 @@ const Mens = () => {
                                     <label htmlFor="#">EVENING</label>
                                 </li>
                             </ul>
-
                         </div>
 
                         {/* <hr /> */}
 
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Discount</li>
                             <ul>
                                 <li>
@@ -186,12 +179,11 @@ const Mens = () => {
                                     <label htmlFor="#">51%-80%</label>
                                 </li>
                             </ul>
-
                         </div>
 
                         {/* <hr /> */}
 
-                        <div className='filter-category'>
+                        <div className="filter-category">
                             <li>- Size & Fit</li>
                             <ul>
                                 <li>
@@ -216,25 +208,26 @@ const Mens = () => {
                                     <label htmlFor="#">XXL</label>
                                 </li>
                             </ul>
-
                         </div>
-
                     </div>
-
                 </div>
-                <div className='mens-right'>
-
-                    <div className='right-head'>
+                <div className="mens-right">
+                    <div className="right-head">
                         <div>Starting at Rs 129</div>
                         <div>
                             <ul>
-                                <li>{store.length}0 Items Found</li>
+                                <li>{ }0 Items Found</li>
                             </ul>
                             <ul>
-                                <input placeholder='Search Here' value={search} onChange={(e) => setSearch(e.target.value)} type="text" />
+                                <input
+                                    placeholder="Search Here"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    type="text"
+                                />
                                 <button onClick={handleButton}>Search</button>
                             </ul>
-                            <ul className='select-tag-mens'>
+                            <ul className="select-tag-mens">
                                 <label htmlFor="">Sort By </label>
                                 <select name="" id="">
                                     <option value="">Relevent</option>
@@ -244,20 +237,20 @@ const Mens = () => {
                                 </select>
                             </ul>
                         </div>
-
                     </div>
-                    <div className='mens-content-wrapper'>
-                        <div className='mens-content'>
-                            {store?.map((item) => <Card key={item.id} {...item} />)}
+                    <div className="mens-content-wrapper">
+                        <div className="mens-content">
+
+                            {Products?.map((item) =>
+                                <Card {...item} />
+                            )}
+
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Mens
+export default Mens;
