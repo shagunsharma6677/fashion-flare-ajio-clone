@@ -16,7 +16,7 @@ import axios from 'axios'
 // import { ChevronDownIcon } from '@chakra-ui/icons'
 
 
-const CartCard = ({ item, setCount,count }) => {
+const CartBox = ({ item, setCount,count }) => {
     // const [count, setCount] = useState(1)
     const [size, setsize] = useState("M")
     const [cartitem, setCartitem] = useState([])
@@ -102,4 +102,4 @@ const CartCard = ({ item, setCount,count }) => {
     )
 }
 
-export default CartCard
+export default CartBox

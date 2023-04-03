@@ -23,11 +23,13 @@ productRoute.get("/:category", async (req, res) => {
 
 productRoute.get("/:category/:_id", async (req, res) => {
     const param = req.params
+    console.log("param",param)
   try {
-    const allProduct = await ProductModel.find(param);
+    const singleProduct = await ProductModel.find(param);
     // console.log("AllProduct", allProduct);
-    if (allProduct) {
-      res.status(200).send(allProduct);
+    console.log(singleProduct)
+    if (singleProduct) {
+      res.status(200).send(singleProduct[0]);
     }
   } catch (err) {
     res.status(400).send(err);

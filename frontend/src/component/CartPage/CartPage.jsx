@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect, useRef } from 'react'
 import { Box, Button, Checkbox, CheckboxGroup, Fade, Flex, Image, Stack, Text } from '@chakra-ui/react';
-import CartCard from './CartCard';
+import CartBox from "../CartBox/CartBox"
 
 import { Input, useDisclosure } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
@@ -9,7 +9,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Paymentmodal from './Payments';
 import { useDispatch } from "react-redux"
 import { getCartData } from '../../redux/action';
-const Cart = () => {
+const CartPage = () => {
     const [cart, setcart] = useState([])
     const [count, setCount] = useState(1)
     const dispatch = useDispatch()
@@ -93,7 +93,7 @@ const Cart = () => {
                             <Text fon textAlign={"left"}>My Bag({cart.length}item)</Text>
                             <Box style={{ textAlign: "center" }}>
                                 {cart.map((item, index) =>
-                                    <CartCard item={item} setCount={setCount} count={count} key={index} />)}
+                                    <CartBox item={item} setCount={setCount} count={count} key={index} />)}
                             </Box>
                         </Box>
                         <Box width={"30%"} border="1px solid rgb(238,238,238)" bg={"rgb(250,250,250)"} padding="10px" marginTop={"30px"}>
@@ -281,4 +281,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default CartPage

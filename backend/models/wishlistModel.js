@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({
+const wishlistSchema = new mongoose.Schema({
   src: { type: String },
   brand: { type: String },
   category: { type: String },
@@ -11,6 +11,6 @@ const cartSchema = new mongoose.Schema({
   offer: { type: String },
 });
 
-const CartModel = mongoose.model("cart", cartSchema);
+const WishlistModel = mongoose.model("wishlist", wishlistSchema);
 
-module.exports = { CartModel };
+module.exports = { WishlistModel };

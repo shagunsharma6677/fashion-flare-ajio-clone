@@ -1,6 +1,6 @@
 import React from 'react'
 import Home from '../component/Home/Home'
-import SingleCardPage from '../component/Womens/SingleCardPage'
+import SingleCardPage from '../component/SingleProduct/SingleCardPage'
 import Womens from '../component/Womens/Womens';
 import Mens from '../component/Mens/Mens';
 import Kids from '../component/Kids/Kids';
@@ -11,7 +11,7 @@ import AdminPage from '../component/Admin/Admin';
 import Orders from '../component/Admin/Orders';
 import Customers from '../component/Admin/Customers';
 import Products from '../component/Admin/Products';
-import Cart from '../component/Womens/Cart';
+import Cart from '../component/CartPage/CartPage';
 import PaymentsPage from '../component/Womens/PaymentsPage';
 import Wishlist from '../component/Wishlist/Wishlist';
 
@@ -22,7 +22,7 @@ const AllRoutes = () => {
             <Route path="/women" element={<Womens/>} />
             <Route path="/men" element={<Mens/>} />
             <Route path="/kid" element={<Kids/>} />
-            <Route path="/siglecard" element={<SingleCardPage/>}></Route>
+            <Route path="/:category/:_id" element={<SingleCardPage/>}></Route>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/admin' element={<AdminPage />}></Route>
