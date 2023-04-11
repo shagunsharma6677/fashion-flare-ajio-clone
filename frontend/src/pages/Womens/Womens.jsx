@@ -29,11 +29,27 @@ function Womens() {
 
   // -------------------------------------------------------------------------------
   const [womenData, setWomenData] = React.useState([])
+  const [sortBy, setSortBy] = useState("discountPrice")
+  const [sortOrder, setSortOrder] = useState("asc")
+  const [search, setSearch] = useState("")
+  const [page, setPage] = useState("1")
+  const [pageSize, setPageSize] = useState("15")
+  const [totalPage, setTotalPage] = useState(null)
+  const [totalProducts, setTotalProducts] = useState("")
+
+  const handleSearch = () => {
+    
+  }
+
+
 
   const getWomenData = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4000/product/women")
-      setWomenData(data)
+      const { data } = await axios.get(`http://localhost:4000/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
+      setWomenData(data.allProduct)
+      setTotalPage(data.totalPages)
+      setTotalProducts(data.total)
+
       console.log(data)
     }
     catch (err) {
@@ -43,10 +59,11 @@ function Womens() {
 
   useEffect(() => {
     getWomenData()
-  }, []);
+    console.log("sort",sortBy)
+  }, [page,search,sortBy,sortOrder]);
   return (
     <>
-      {isLargerThan800 ? <Navbar /> : <MobileNav />}
+      {isLargerThan800 ? <Navbar setDone={setSearch} /> : <MobileNav />}
 
       <div
         style={{
@@ -633,15 +650,35 @@ function Womens() {
             padding="10px"
           >
             <div>
-              <h6>{ }00 Items Found</h6>
+              <h6>{totalProducts} Items Found</h6>
             </div>
 
             <div>
-              <label htmlFor="sort-select">Sort by:</label>
-              <select onChange={(e) => handleSorting(e)} id="sort-select">
+              <label htmlFor="sort-select">Page</label>
+              <select onChange={(e) => setPage(e.target.value)} id="sort-select">
                 <option value="">Select Price</option>
-                <option value="highToLow">Price High to Low</option>
-                <option value="lowToHigh">Price Low to High</option>
+
+                {Array(totalPage)?.fill().map((item, index) => <option value={index + 1}>{index + 1}</option>)}
+
+
+              </select>
+            </div>
+            <div>
+              <label htmlFor="sort-select">Sort by Category:</label>
+              <select onChange={(e) => setSortBy(e.target.value)} id="sort-select">
+                <option value="">Select Price</option>
+                <option value="discountPrice">Price</option>
+                <option value="rating">Rating</option>
+              </select>
+            </div>
+
+
+            <div>
+              <label htmlFor="sort-select">Sort by Order:</label>
+              <select onChange={(e) => setSortOrder(e.target.value)} id="sortOrder-select">
+                <option value="">Select Price</option>
+                <option value="dsc">Price High to Low</option>
+                <option value="asc">Price Low to High</option>
               </select>
             </div>
           </Box>
@@ -654,9 +691,9 @@ function Womens() {
               display: "grid",
               gap: "15px",
               justifyContent: "space-around",
-              padding:"5px",
+              padding: "5px",
               border: "1px solid rgb(240,240,240)",
-              borderTop:"none"
+              borderTop: "none"
             }}
             gridTemplateColumns={{
               sm: "repeat(1, 1fr)",

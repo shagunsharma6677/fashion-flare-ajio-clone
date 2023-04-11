@@ -10,19 +10,24 @@ import Logo2 from "../../assets/Images/fashion_flare.png"
 import { BiCart } from "react-icons/bi";
 import { SidebarContext } from "../context/SidebarContextProvider";
 import axios from "axios";
-const Navbar = ({ cartlength }) => {
+
+
+const Navbar = ({ setDone }) => {
   // console.log(cartlength)
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
+  const [search, setSearch] = useState("")
 
   const [cartSize, setCartSize] = useState("")
+
+
 
   // console.log(store,"cart")
 
   // console.log(user);
   // http://localhost:3000/women/6434de55fd85e3101f3f3176
   const cartTotal = async () => {
-    const { data } =await axios.get("http://localhost:4000/cart")
+    const { data } = await axios.get("http://localhost:4000/cart")
     setCartSize(data.length)
   }
 
@@ -509,10 +514,10 @@ const Navbar = ({ cartlength }) => {
               </Box>
             </Link>
 
-            {/* <Box>
+            <Box>
 
-              <Input onKeyPress={handleEnter} placeholder={"SEARCH"} borderRadius="20px"></Input>
-            </Box> */}
+              {/* <Input value={search} onKeyPress={setDone(search)} onChange={(e) => setSearch(e.target.value)} placeholder={"SEARCH"} borderRadius="20px"></Input> */}
+            </Box>
 
             <Box>
               {/* <Button  >{login || user.name ? "LOGOUT" : "SIGN IN"}</Button> */}
