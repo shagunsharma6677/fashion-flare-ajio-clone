@@ -9,6 +9,7 @@ const cartSchema = new mongoose.Schema({
   orginalPrice: { type: String },
   discount: { type: String },
   offer: { type: String },
+  quantity:{type:Number}
 });
 
 const CartModel = mongoose.model("cart", cartSchema);

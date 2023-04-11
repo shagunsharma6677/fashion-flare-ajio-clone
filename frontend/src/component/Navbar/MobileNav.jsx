@@ -1,24 +1,22 @@
 import React, { useContext } from "react";
-import Logo from '../Images/fashionFlair.jpg';
-import Logo2 from "../Images/fashion_flare.png"
+import Logo2 from "../../assets/Images/fashion_flare.png"
 import {
   Flex,
   Box,
   Text,
   Image,
-  Center,
-  Input,
   Button,
 } from "@chakra-ui/react";
 import MobileItem from "./MobileItem";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { BsFillBagCheckFill } from "react-icons/bs";
+import { BsFillBagCheckFill,BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SidebarContext } from "../context/SidebarContextProvider";
+
 const MobileNav = () => {
 
-  let user = JSON.parse(localStorage.getItem("user"));
-  
+
+
   const { cartData, setCartData, cartLength, setCartLength, setCategory } =
     useContext(SidebarContext);
 
@@ -36,16 +34,19 @@ const MobileNav = () => {
       >
         <MobileItem
           nameitem={<GiHamburgerMenu />}
-          item1={"New Collection"}
-          item2={"WOMEN"}
-          item3={"MEN"}
-          item4={"KIDS"}
-          item5={"WINTER WEAR"}
-          item6={"BEAUTY"}
-          item7={"WATCHES"}
-          item8={"JEWELLERY"}
-          item9={"INDIE"}
-          item10={"STORES"}
+          item1={<Link to="/women">
+            WOMENS
+          </Link>}
+          item2={<Link to="/men">
+            MENS
+          </Link>}
+          item3={<Link to="/kid">
+            KIDS
+          </Link>}
+          item4={<Link to="/homeandkitchen">
+            HOME & KITCHEN
+          </Link>}
+          
         />
         <Box>
           <Link to="/">
@@ -60,28 +61,45 @@ const MobileNav = () => {
           <Button colorScheme="red" size="sm">SignIn</Button>
         </Link>
         <Link to="/cart">
-        
-        <Box
-          
-          right="20px"
-          width={"fit-content"}
-          height="1rem"
-          display={"flex"}
-          alignItems={"center"}
-          gap="3"
-        >
-          <BsFillBagCheckFill style={{ fontSize: "30px" }} />
-          <Text as="b"  fontSize={"xs"}>
-            {cartLength}
-          </Text>
-        </Box>
+
+          <Box
+
+            right="20px"
+            width={"fit-content"}
+            height="1rem"
+            display={"flex"}
+            alignItems={"center"}
+            gap="3"
+          >
+            <BsFillBagCheckFill style={{ fontSize: "30px" }} />
+            <Text as="b" fontSize={"xs"}>
+              {cartLength}
+            </Text>
+          </Box>
+        </Link>
+        <Link to="/wishlist">
+
+          <Box
+
+            right="20px"
+            width={"fit-content"}
+            height="1rem"
+            display={"flex"}
+            alignItems={"center"}
+            gap="3"
+          >
+            <BsFillSuitHeartFill style={{ fontSize: "30px" }} />
+            <Text as="b" fontSize={"xs"}>
+              
+            </Text>
+          </Box>
         </Link>
       </Flex>
-      <Input
+      {/* <Input
         width="300px"
         marginTop="10px"
         placeholder={`Search by product,prices,and brand`}
-      ></Input>
+      ></Input> */}
     </div>
   );
 };
