@@ -41,8 +41,6 @@ function Womens() {
     
   }
 
-
-
   const getWomenData = async () => {
     try {
       const { data } = await axios.get(`http://localhost:4000/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
@@ -59,11 +57,11 @@ function Womens() {
 
   useEffect(() => {
     getWomenData()
-    console.log("sort",sortBy)
+    // console.log("sort",sortBy)
   }, [page,search,sortBy,sortOrder]);
   return (
     <>
-      {isLargerThan800 ? <Navbar setDone={setSearch} /> : <MobileNav />}
+      {isLargerThan800 ? <Navbar  /> : <MobileNav />}
 
       <div
         style={{

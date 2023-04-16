@@ -6,33 +6,33 @@ const productRoute = express.Router();
 //Get All Product
 //Get By Category
 
-productRoute.get("/dummy/:category", async (req, res) => {
-  const { search, sort, category } = req.query;
-  const page = parseInt(req.query.page) || 1;
-  const pageSize = parseInt(req.query.pageSize) || 15;
-  const startIndex = (page - 1) * pageSize;
+// productRoute.get("/dummy/:category", async (req, res) => {
+//   const { search, sort, category } = req.query;
+//   const page = parseInt(req.query.page) || 1;
+//   const pageSize = parseInt(req.query.pageSize) || 15;
+//   const startIndex = (page - 1) * pageSize;
 
-  let query = {};
-  if (search) {
-    query.title = { $regex: search, $options: "i" };
-  }
+//   let query = {};
+//   if (search) {
+//     query.title = { $regex: search, $options: "i" };
+//   }
 
-  // Filtering
-  if (sort) {
-    query.category = sort;
-  }
-  const results = await ProductModel.find(
-    { category: req.params.category },
-    query
-  )
-    .skip(startIndex)
-    .limit(pageSize);
-  res.json({
-    page,
-    pageSize,
-    results,
-  });
-});
+//   // Filtering
+//   if (sort) {
+//     query.category = sort;
+//   }
+//   const results = await ProductModel.find(
+//     { category: req.params.category },
+//     query
+//   )
+//     .skip(startIndex)
+//     .limit(pageSize);
+//   res.json({
+//     page,
+//     pageSize,
+//     results,
+//   });
+// });
 
 productRoute.get("/:category", async (req, res) => {
   try {
@@ -43,17 +43,22 @@ productRoute.get("/:category", async (req, res) => {
     const order = req.query.order || "asc";
     const sortBy = req.query.sortBy || "discountPrice";
     let query = {};
+   
 
     if (search) {
       query.title = { $regex: search, $options: "i" };
     }
-    const total = await ProductModel.find({category:req.params.category}).countDocuments(query);
+    const total = await ProductModel.find({
+      category: req.params.category,
+    }).countDocuments(query);
     const sortQuery = {};
 
     if (sortBy) {
       sortQuery[sortBy] = order === "asc" ? 1 : -1;
     }
+   
 
+  
     const totalPages = Math.ceil(total / pageSize);
 
     const allProduct = await ProductModel.find(
@@ -69,7 +74,7 @@ productRoute.get("/:category", async (req, res) => {
         page,
         pageSize,
         allProduct,
-        total
+        total,
       });
     }
   } catch (err) {
@@ -121,17 +126,18 @@ productRoute.post("/add", async (req, res) => {
 });
 //Single Product
 
-productRoute.get("/:category/:_id", async (req, res) => {
+productRoute.get("/single/:category/:_id", async (req, res) => {
   const param = req.params;
   console.log("param", param);
   try {
     const singleProduct = await ProductModel.find(param);
     // console.log("AllProduct", allProduct);
-    // console.log(singleProduct)
+    console.log(singleProduct);
     if (singleProduct) {
       res.status(200).send(singleProduct[0]);
     }
   } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });

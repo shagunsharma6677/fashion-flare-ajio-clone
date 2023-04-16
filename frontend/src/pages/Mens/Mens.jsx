@@ -16,47 +16,117 @@ import {
 import { useMediaQuery } from "@chakra-ui/react";
 import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
-import { Card } from "../../component/Card/Card"
+import { Card } from "../../component/Card/Card";
 import axios from "axios";
 
 function Mens() {
   const [text, settext] = useState("");
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
-  const handleSubmit = (productType) => { };
-  const handleSorting = (e) => { };
-  const categoryFilter = () => { };
-  const handlePriceFilterChange = (event) => { };
+  const handleSubmit = (productType) => {};
+  const handleSorting = (e) => {};
 
   // -------------------------------------------------------------------------------
-  const [menData, setMenData] = React.useState([])
-  const [sortBy, setSortBy] = useState("discountPrice")
-  const [sortOrder, setSortOrder] = useState("asc")
-  const [search, setSearch] = useState("")
-  const [page, setPage] = useState("1")
-  const [pageSize, setPageSize] = useState("15")
-  const [totalPage, setTotalPage] = useState(null)
-  const [totalProducts, setTotalProducts] = useState("")
+  const [menData, setMenData] = React.useState([]);
+  const [sortBy, setSortBy] = useState("discountPrice");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState("1");
+  const [pageSize, setPageSize] = useState("15");
+  const [totalPage, setTotalPage] = useState(null);
+  const [totalProducts, setTotalProducts] = useState("");
+  const [filter, setFilter] = useState(null);
+  const [genre, setGenre] = useState("All");
   const getMenData = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
-      setMenData(data.allProduct)
-      setTotalPage(data.totalPages)
-      setTotalProducts(data.total)
+      const { data } = await axios.get(
+        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+      );
+      setMenData(data.allProduct);
+      setTotalPage(data.totalPages);
+      setTotalProducts(data.total);
 
-      console.log(data)
+      console.log(data);
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-      console.log(err)
+  };
+
+  const handleCategory = async (event) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+      );
+
+      if (event.target.checked) {
+        let filterded = data.allProduct.filter((item) => {
+          return item.genre.includes(event.target.value);
+        });
+
+        setMenData(filterded);
+        setTotalPage(Math.floor(filterded.length / pageSize));
+        setTotalProducts(filterded.length);
+      } else {
+        getMenData();
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+  const handlePriceFilterChange = async (event) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+      );
+
+      if (event.target.checked) {
+        let filterded = data.allProduct.filter((item) => {
+          return +item.discountPrice < +event.target.value;
+        });
+
+        setMenData(filterded);
+        setTotalPage(Math.floor(filterded.length / pageSize));
+        setTotalProducts(filterded.length);
+      } else {
+        getMenData();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRattingFilter = async (event) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+      );
+
+      if (event.target.checked) {
+        let filterded = data.allProduct.filter((item) => {
+          return item.rating === event.target.value;
+        });
+
+        setMenData(filterded);
+        setTotalPage(Math.floor(filterded.length / pageSize));
+        setTotalProducts(filterded.length);
+      } else {
+        getMenData();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    getMenData()
-    console.log("sort", sortBy)
+    getMenData();
+    console.log("sort", sortBy);
   }, [page, search, sortBy, sortOrder]);
   return (
     <>
-      {isLargerThan800 ? <Navbar setSearch={setSearch} searchDone={getMenData} /> : <MobileNav />}
+      {isLargerThan800 ? (
+        <Navbar setSearch={setSearch} searchDone={getMenData} />
+      ) : (
+        <MobileNav />
+      )}
 
       <div
         style={{
@@ -65,7 +135,7 @@ function Mens() {
           maxWidth: "1250px",
           margin: "auto",
           gap: "80px",
-          paddingBottom: "100px"
+          paddingBottom: "100px",
         }}
       >
         <Box
@@ -201,8 +271,8 @@ function Mens() {
                   <AccordionPanel pb={4}>
                     <Stack spacing={5} direction="column">
                       <Checkbox
-                        value={"furniture"}
-                        onChange={categoryFilter}
+                        value={"shoes"}
+                        onChange={handleCategory}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -210,11 +280,11 @@ function Mens() {
                         border={"1px solid rgb(240,240,240)"}
                         colorScheme="green"
                       >
-                        furniture
+                        Shoes
                       </Checkbox>
                       <Checkbox
-                        value={"mens-watches"}
-                        onChange={categoryFilter}
+                        value={"jeans"}
+                        onChange={handleCategory}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -222,11 +292,11 @@ function Mens() {
                         border={"1px solid rgb(240,240,240)"}
                         colorScheme="green"
                       >
-                        mens-watches
+                        Jeans
                       </Checkbox>
                       <Checkbox
-                        value={"sunglasses"}
-                        onChange={categoryFilter}
+                        value={"kit"}
+                        onChange={handleCategory}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -234,11 +304,11 @@ function Mens() {
                         border={"1px solid rgb(240,240,240)"}
                         colorScheme="green"
                       >
-                        sunglasses
+                        Men Kit
                       </Checkbox>
                       <Checkbox
-                        value={"lighting"}
-                        onChange={categoryFilter}
+                        value={"tshirt"}
+                        onChange={handleCategory}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -246,11 +316,11 @@ function Mens() {
                         border={"1px solid rgb(240,240,240)"}
                         colorScheme="green"
                       >
-                        lighting
+                        T-Shirt
                       </Checkbox>
                       <Checkbox
-                        value={"automotive"}
-                        onChange={categoryFilter}
+                        value={"pants"}
+                        onChange={handleCategory}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -258,9 +328,9 @@ function Mens() {
                         border={"1px solid rgb(240,240,240)"}
                         colorScheme="green"
                       >
-                        automotive
+                        Pants
                       </Checkbox>
-                      <Checkbox
+                      {/* <Checkbox
                         value={"womens-shoes"}
                         onChange={categoryFilter}
                         borderRadius={"15px"}
@@ -284,7 +354,7 @@ function Mens() {
                         colorScheme="green"
                       >
                         mens-shoes
-                      </Checkbox>
+                      </Checkbox> */}
                     </Stack>
                   </AccordionPanel>
                 </AccordionItem>
@@ -306,11 +376,11 @@ function Mens() {
                   </h2>
                   <AccordionPanel pb={4}>
                     <Stack spacing={5} direction="column">
-                      <Checkbox colorScheme="green">2.0 and above</Checkbox>
-                      <Checkbox colorScheme="green">3.0 and above</Checkbox>
-                      <Checkbox colorScheme="green">4.0 and above</Checkbox>
-
-                      <Checkbox colorScheme="green">M-Rated</Checkbox>
+                      <Checkbox onChange={handleRattingFilter} value={"1"} colorScheme="green">1.0 Star</Checkbox>
+                      <Checkbox onChange={handleRattingFilter} value={"2"} colorScheme="green">2.0 Star</Checkbox>
+                      <Checkbox onChange={handleRattingFilter} value={"3"} colorScheme="green">3.0 Star</Checkbox>
+                      <Checkbox onChange={handleRattingFilter} value={"4"} colorScheme="green">4.0 Star</Checkbox>
+                      <Checkbox onChange={handleRattingFilter} value={"5"} colorScheme="green">5.0 Star</Checkbox>
                     </Stack>
                   </AccordionPanel>
                 </AccordionItem>
@@ -648,27 +718,37 @@ function Mens() {
 
             <div>
               <label htmlFor="sort-select">Page</label>
-              <select onChange={(e) => setPage(e.target.value)} id="sort-select">
+              <select
+                onChange={(e) => setPage(e.target.value)}
+                id="sort-select"
+              >
                 <option value="">Select Price</option>
 
-                {Array(totalPage)?.fill().map((item, index) => <option value={index + 1}>{index + 1}</option>)}
-
-
+                {Array(totalPage)
+                  ?.fill()
+                  .map((item, index) => (
+                    <option value={index + 1}>{index + 1}</option>
+                  ))}
               </select>
             </div>
             <div>
               <label htmlFor="sort-select">Sort by Category:</label>
-              <select onChange={(e) => setSortBy(e.target.value)} id="sort-select">
+              <select
+                onChange={(e) => setSortBy(e.target.value)}
+                id="sort-select"
+              >
                 <option value="">Select Price</option>
                 <option value="discountPrice">Price</option>
                 <option value="rating">Rating</option>
               </select>
             </div>
 
-
             <div>
               <label htmlFor="sort-select">Sort by Order:</label>
-              <select onChange={(e) => setSortOrder(e.target.value)} id="sortOrder-select">
+              <select
+                onChange={(e) => setSortOrder(e.target.value)}
+                id="sortOrder-select"
+              >
                 <option value="">Select Price</option>
                 <option value="dsc">Price High to Low</option>
                 <option value="asc">Price Low to High</option>
@@ -686,16 +766,17 @@ function Mens() {
               justifyContent: "space-around",
               padding: "5px",
               border: "1px solid rgb(240,240,240)",
-              borderTop: "none"
+              borderTop: "none",
             }}
             gridTemplateColumns={{
               sm: "repeat(1, 1fr)",
               md: "repeat(2, 1fr) ",
               lg: "repeat(3, 1fr) ",
             }}
-
           >
-            {menData?.map((item) => <Card {...item} />)}
+            {menData?.map((item) => (
+              <Card {...item} />
+            ))}
           </Box>
         </Box>
       </div>
