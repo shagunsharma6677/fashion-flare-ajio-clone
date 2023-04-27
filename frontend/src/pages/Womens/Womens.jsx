@@ -18,6 +18,7 @@ import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
 import { Card } from "../../component/Card/Card"
 import axios from "axios";
+import {Loader} from "../../component/Loader/Loader"
 
 function Womens() {
   const [text, settext] = useState("");
@@ -700,7 +701,7 @@ function Womens() {
             }}
 
           >
-            {womenData?.map((item) => <Card {...item} />)}
+            { womenData.length > 0 ? womenData.map((item) => <Card {...item} />) : <Loader/>}
           </Box>
         </Box>
       </div>

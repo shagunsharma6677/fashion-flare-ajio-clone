@@ -24,7 +24,7 @@ const ListHeader = ({ children }) => {
 export default function Footer() {
   return (
     <Box
-    
+
       bg={useColorModeValue("#2c4152")}
       color={useColorModeValue('#fff')}>
       <Container as={Stack} maxW={'6xl'} py={10}>
@@ -89,7 +89,7 @@ export default function Footer() {
             flexGrow: 1,
             ml: 8,
           }}>
-              <Text fontSize="30px" fontWeight={"600"}>Fashion Flair</Text>
+          <Text fontSize="30px" fontWeight={"600"}>Fashion Flair</Text>
         </Flex>
       </Box>
     </Box>

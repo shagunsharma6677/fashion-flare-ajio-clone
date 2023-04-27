@@ -57,7 +57,7 @@ productRoute.get("/:category", async (req, res) => {
       sortQuery[sortBy] = order === "asc" ? 1 : -1;
     }
    
-
+console.log(sortQuery)
   
     const totalPages = Math.ceil(total / pageSize);
 

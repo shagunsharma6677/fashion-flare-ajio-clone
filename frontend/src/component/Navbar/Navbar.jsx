@@ -1,65 +1,46 @@
-import React, { useContext } from "react";
-<<<<<<< HEAD
-import Logo from "../Images/fashionFlair.jpg";
-=======
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Flex, Text, Image, Input, Button } from "@chakra-ui/react";
 import { BsFillBagCheckFill, BsFillSuitHeartFill } from "react-icons/bs";
 import Menuitem from "./MenuItem";
 import { Link } from "react-router-dom";
-import { SidebarContext } from "../context/SidebarContextProvider";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import Logo2 from "../Images/fashion_flare.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductSearch } from "../../redux/Products/action";
-
-const Navbar = () => {
-=======
-import Logo2 from "../Images/fashion_flare.png"
-import { useSelector } from "react-redux";
-import { BiCart } from "react-icons/bi";
-const Navbar = ({cartlength}) => {
-// console.log(cartlength)
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
+import Logo2 from "../../assets/Images/fashion_flare.png"
+import { SidebarContext } from "../context/SidebarContextProvider";
+import axios from "axios";
+const Navbar = ({ setDone }) => {
+  // console.log(cartlength)
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
-  const store = useSelector((store) => store.CartReducer.cart);
-  const wishlist = useSelector((store) => store.CartReducer.wishlist);
-
-  const [query, setQuery] = React.useState("");
-  // console.log(store,"cart")
-
-  // console.log(user);
+  const [cartSize, setCartSize] = useState("")
+  const cartTotal = async () => {
+    const { data } = await axios.get("http://localhost:4000/cart")
+    setCartSize(data.length)
+  }
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  const {
-    login,
-    setLogin,
-    cartData,
-    setCartData,
-    cartLength,
-    setCartLength,
-    setCategory,
-  } = useContext(SidebarContext);
-=======
-  const {setCategory } =
+  const { setCategory } =
     useContext(SidebarContext);
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
 
   const handleLogout = () => {
+
     localStorage.removeItem("loginValue");
     localStorage.removeItem("user");
-    navigate("/login");
-  };
+    navigate('/login')
+
+  }
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      // navigate(`/querypage/${e.target.value}`);
+      navigate(`/querypage/${e.target.value}`)
+
     }
-  };
+  }
+
+  useEffect(() => {
+    cartTotal()
+  }, [])
+
 
   return (
     <div>
@@ -75,7 +56,11 @@ const Navbar = ({cartlength}) => {
       >
         <Box>
           <Link to="/">
-            <Image src={Logo2} width="150px" height="50px"></Image>
+            <Image
+              src={Logo2}
+              width="150px"
+              height="50px"
+            ></Image>
           </Link>
         </Box>
         <Box>
@@ -508,72 +493,45 @@ const Navbar = ({cartlength}) => {
                           <Text cursor={"po"}>Play Time</Text>
                         </Box>
                       </Flex>
+
                     </Box>
                   }
                 />
               </Box>
             </Link>
 
-<<<<<<< HEAD
             <Box>
-              <Input
-                onKeyPress={handleEnter}
-                placeholder={"SEARCH"}
-                borderRadius="20px"
-                onChange={(e) => setQuery(e.target.value)}
-              ></Input>
-            </Box>
-=======
-            {/* <Box>
 
-              <Input onKeyPress={handleEnter} placeholder={"SEARCH"} borderRadius="20px"></Input>
-            </Box> */}
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
+              {/* <Input value={search} onKeyPress={setDone(search)} onChange={(e) => setSearch(e.target.value)} placeholder={"SEARCH"} borderRadius="20px"></Input> */}
+            </Box>
 
             <Box>
               {/* <Button  >{login || user.name ? "LOGOUT" : "SIGN IN"}</Button> */}
-              {loginValue !== null ? (
-                <Button colorScheme="red" onClick={handleLogout}>
-                  LOGOUT
-                </Button>
-              ) : (
-                <Link to="/login">
-                  <Button colorScheme="green">Login</Button>
-                </Link>
-              )}
+              {loginValue !== null ? <Button colorScheme='red' onClick={handleLogout} >LOGOUT</Button> : <Link to="/login" ><Button colorScheme='green'>Login</Button></Link>}
             </Box>
 
-            {loginValue ? <Text as="b">{user.name}</Text> : null}
+
+            {loginValue ? <Text as="b" >{user.name}</Text> : null}
             <Link to="/cart">
-              <Box display="flex" gap={"2"}>
+              <Box display="flex" gap={'2'}  >
                 <BsFillBagCheckFill style={{ fontSize: "30px" }} />
-<<<<<<< HEAD
-                <Text alignSelf={"end"} as="b">
-                  {store.length}
-                </Text>
-=======
-                <Text alignSelf={"end"} as="b" >{cartlength}</Text>
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
+                <Text alignSelf={"end"} as="b" >{cartSize}</Text>
               </Box>
             </Link>
 
             <Link to="/wishlist">
-              <Box display="flex" gap={"2"}>
+              <Box display="flex" gap={'2'}  >
                 <BsFillSuitHeartFill style={{ fontSize: "28px" }} />
-<<<<<<< HEAD
-                <Text alignSelf={"end"} as="b">
-                  {wishlist.length}
-                </Text>
-=======
-                <Text alignSelf={"end"} as="b" >{}</Text>
->>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
+                <Text alignSelf={"end"} as="b" >{ }</Text>
               </Box>
             </Link>
           </Flex>
+
         </Box>
       </Flex>
     </div>
   );
 };
+
 
 export default Navbar;

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Logo2 from "../Images/fashion_flare.png"
+import Logo2 from "../../assets/Images/fashion_flare.png"
 import {
   Flex,
   Box,
@@ -12,6 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFillBagCheckFill,BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SidebarContext } from "../context/SidebarContextProvider";
+
 const MobileNav = () => {
 
 

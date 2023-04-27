@@ -18,6 +18,7 @@ import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
 import { Card } from "../../component/Card/Card";
 import axios from "axios";
+import { Loader } from "../../component/Loader/Loader";
 
 function Mens() {
   const [text, settext] = useState("");
@@ -34,7 +35,7 @@ function Mens() {
   const getMenData = async () => {
     try {
       const { data } = await axios.get(
-        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
       );
       setMenData(data.allProduct);
       setTotalPage(data.totalPages);
@@ -769,9 +770,9 @@ function Mens() {
               lg: "repeat(3, 1fr) ",
             }}
           >
-            {menData?.map((item) => (
+            { menData.length > 0 ? menData?.map((item) => (
               <Card {...item} />
-            ))}
+            )) : <Loader/>}
           </Box>
         </Box>
       </div>
