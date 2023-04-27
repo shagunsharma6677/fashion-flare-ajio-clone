@@ -22,9 +22,6 @@ import axios from "axios";
 function Mens() {
   const [text, settext] = useState("");
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
-  const handleSubmit = (productType) => {};
-  const handleSorting = (e) => {};
-
   // -------------------------------------------------------------------------------
   const [menData, setMenData] = React.useState([]);
   const [sortBy, setSortBy] = useState("discountPrice");
@@ -34,12 +31,10 @@ function Mens() {
   const [pageSize, setPageSize] = useState("15");
   const [totalPage, setTotalPage] = useState(null);
   const [totalProducts, setTotalProducts] = useState("");
-  const [filter, setFilter] = useState(null);
-  const [genre, setGenre] = useState("All");
   const getMenData = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
       );
       setMenData(data.allProduct);
       setTotalPage(data.totalPages);
@@ -54,7 +49,7 @@ function Mens() {
   const handleCategory = async (event) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
       );
 
       if (event.target.checked) {
@@ -75,7 +70,7 @@ function Mens() {
   const handlePriceFilterChange = async (event) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
       );
 
       if (event.target.checked) {
@@ -97,7 +92,7 @@ function Mens() {
   const handleRattingFilter = async (event) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
+        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
       );
 
       if (event.target.checked) {

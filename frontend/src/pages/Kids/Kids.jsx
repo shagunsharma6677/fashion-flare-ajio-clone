@@ -32,8 +32,8 @@ function Kids() {
 
   const getWomenData = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4000/product/kid")
-      setKidData(data)
+      const { data } = await axios.get("https://teal-vast-piglet.cyclic.app/product/kid")
+      setKidData(data.allProduct)
     }
     catch (err) {
       console.log(err)

@@ -6,9 +6,11 @@ const { cartRoute } = require("./routes/cartRoute");
 const { wishlistRoute } = require("./routes/wishlistRoute");
 const { authRoute } = require("./routes/auth.Route");
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+require('dotenv').config()
 app.use("/product", productRoute);
 app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);

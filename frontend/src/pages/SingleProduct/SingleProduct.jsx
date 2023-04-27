@@ -22,7 +22,7 @@ const SingleProduct = () => {
   const getSingleProd = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/product/single/${category}/${id}`
+        `https://teal-vast-piglet.cyclic.app/product/single/${category}/${id}`
       );
       setSingleProd(data);
       // console.log(data)
@@ -34,7 +34,7 @@ const SingleProduct = () => {
   const addToWishlist = () => {
     setText(!text);
     if (text === true) {
-      axios.post("http://localhost:4000/wishlist/add", { ...singleProd });
+      axios.post("https://teal-vast-piglet.cyclic.app/wishlist/add", { ...singleProd });
 
       toast({
         title: `Product Added to Wishlist Successfully`,
@@ -48,7 +48,7 @@ const SingleProduct = () => {
 
   const addtobag = () => {
     // setcount(count++);
-    axios.post("http://localhost:4000/cart/add", singleProd);
+    axios.post("https://teal-vast-piglet.cyclic.app/cart/add", singleProd);
     toast({
       title: `Product Added to Cart Successfully`,
       position: "top",

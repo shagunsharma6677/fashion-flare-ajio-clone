@@ -1,60 +1,65 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
+<<<<<<< HEAD
+import Logo from "../Images/fashionFlair.jpg";
+=======
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
 import { Box, Flex, Text, Image, Input, Button } from "@chakra-ui/react";
 import { BsFillBagCheckFill, BsFillSuitHeartFill } from "react-icons/bs";
 import Menuitem from "./MenuItem";
 import { Link } from "react-router-dom";
-// import { SidebarContext } from "../context/SidebarContextProvider";
-import { useNavigate } from "react-router-dom";
-import Logo2 from "../../assets/Images/fashion_flare.png"
-
-import { BiCart } from "react-icons/bi";
 import { SidebarContext } from "../context/SidebarContextProvider";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+import Logo2 from "../Images/fashion_flare.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductSearch } from "../../redux/Products/action";
 
-
-const Navbar = ({ setDone }) => {
-  // console.log(cartlength)
+const Navbar = () => {
+=======
+import Logo2 from "../Images/fashion_flare.png"
+import { useSelector } from "react-redux";
+import { BiCart } from "react-icons/bi";
+const Navbar = ({cartlength}) => {
+// console.log(cartlength)
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
-  const [search, setSearch] = useState("")
+  const store = useSelector((store) => store.CartReducer.cart);
+  const wishlist = useSelector((store) => store.CartReducer.wishlist);
 
-  const [cartSize, setCartSize] = useState("")
-
-
-
+  const [query, setQuery] = React.useState("");
   // console.log(store,"cart")
 
   // console.log(user);
-  // http://localhost:3000/women/6434de55fd85e3101f3f3176
-  const cartTotal = async () => {
-    const { data } = await axios.get("http://localhost:4000/cart")
-    setCartSize(data.length)
-  }
 
   const navigate = useNavigate();
 
-  const { setCategory } =
+<<<<<<< HEAD
+  const {
+    login,
+    setLogin,
+    cartData,
+    setCartData,
+    cartLength,
+    setCartLength,
+    setCategory,
+  } = useContext(SidebarContext);
+=======
+  const {setCategory } =
     useContext(SidebarContext);
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
 
   const handleLogout = () => {
-
     localStorage.removeItem("loginValue");
     localStorage.removeItem("user");
-    navigate('/login')
-
-  }
+    navigate("/login");
+  };
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      navigate(`/querypage/${e.target.value}`)
-
+      // navigate(`/querypage/${e.target.value}`);
     }
-  }
-
-  useEffect(() => {
-    cartTotal()
-  }, [])
-
+  };
 
   return (
     <div>
@@ -70,11 +75,7 @@ const Navbar = ({ setDone }) => {
       >
         <Box>
           <Link to="/">
-            <Image
-              src={Logo2}
-              width="150px"
-              height="50px"
-            ></Image>
+            <Image src={Logo2} width="150px" height="50px"></Image>
           </Link>
         </Box>
         <Box>
@@ -507,45 +508,72 @@ const Navbar = ({ setDone }) => {
                           <Text cursor={"po"}>Play Time</Text>
                         </Box>
                       </Flex>
-
                     </Box>
                   }
                 />
               </Box>
             </Link>
 
+<<<<<<< HEAD
             <Box>
-
-              {/* <Input value={search} onKeyPress={setDone(search)} onChange={(e) => setSearch(e.target.value)} placeholder={"SEARCH"} borderRadius="20px"></Input> */}
+              <Input
+                onKeyPress={handleEnter}
+                placeholder={"SEARCH"}
+                borderRadius="20px"
+                onChange={(e) => setQuery(e.target.value)}
+              ></Input>
             </Box>
+=======
+            {/* <Box>
+
+              <Input onKeyPress={handleEnter} placeholder={"SEARCH"} borderRadius="20px"></Input>
+            </Box> */}
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
 
             <Box>
               {/* <Button  >{login || user.name ? "LOGOUT" : "SIGN IN"}</Button> */}
-              {loginValue !== null ? <Button colorScheme='red' onClick={handleLogout} >LOGOUT</Button> : <Link to="/login" ><Button colorScheme='green'>Login</Button></Link>}
+              {loginValue !== null ? (
+                <Button colorScheme="red" onClick={handleLogout}>
+                  LOGOUT
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button colorScheme="green">Login</Button>
+                </Link>
+              )}
             </Box>
 
-
-            {loginValue ? <Text as="b" >{user.name}</Text> : null}
+            {loginValue ? <Text as="b">{user.name}</Text> : null}
             <Link to="/cart">
-              <Box display="flex" gap={'2'}  >
+              <Box display="flex" gap={"2"}>
                 <BsFillBagCheckFill style={{ fontSize: "30px" }} />
-                <Text alignSelf={"end"} as="b" >{cartSize}</Text>
+<<<<<<< HEAD
+                <Text alignSelf={"end"} as="b">
+                  {store.length}
+                </Text>
+=======
+                <Text alignSelf={"end"} as="b" >{cartlength}</Text>
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
               </Box>
             </Link>
 
             <Link to="/wishlist">
-              <Box display="flex" gap={'2'}  >
+              <Box display="flex" gap={"2"}>
                 <BsFillSuitHeartFill style={{ fontSize: "28px" }} />
-                <Text alignSelf={"end"} as="b" >{ }</Text>
+<<<<<<< HEAD
+                <Text alignSelf={"end"} as="b">
+                  {wishlist.length}
+                </Text>
+=======
+                <Text alignSelf={"end"} as="b" >{}</Text>
+>>>>>>> ec6a1a5ed67409f44819eee84465b99ff78306db
               </Box>
             </Link>
           </Flex>
-
         </Box>
       </Flex>
     </div>
   );
 };
-
 
 export default Navbar;

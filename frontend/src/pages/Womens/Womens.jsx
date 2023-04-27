@@ -43,7 +43,7 @@ function Womens() {
 
   const getWomenData = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:4000/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
+      const { data } = await axios.get(`https://teal-vast-piglet.cyclic.app/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
       setWomenData(data.allProduct)
       setTotalPage(data.totalPages)
       setTotalProducts(data.total)
