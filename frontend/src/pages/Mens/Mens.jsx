@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "@chakra-ui/react";
 import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
@@ -20,109 +21,31 @@ import { Card } from "../../component/Card/Card";
 import axios from "axios";
 import { Loader } from "../../component/Loader/Loader";
 
+import { getProductData } from "../../redux/Products/action";
+
 function Mens() {
   const [text, settext] = useState("");
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
   // -------------------------------------------------------------------------------
-  const [menData, setMenData] = React.useState([]);
   const [sortBy, setSortBy] = useState("discountPrice");
   const [sortOrder, setSortOrder] = useState("asc");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState("1");
-  const [pageSize, setPageSize] = useState("15");
-  const [totalPage, setTotalPage] = useState(null);
-  const [totalProducts, setTotalProducts] = useState("");
-  const getMenData = async () => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:4000/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
-      );
-      setMenData(data.allProduct);
-      setTotalPage(data.totalPages);
-      setTotalProducts(data.total);
-
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleCategory = async (event) => {
-    try {
-      const { data } = await axios.get(
-        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
-      );
-
-      if (event.target.checked) {
-        let filterded = data.allProduct.filter((item) => {
-          return item.genre.includes(event.target.value);
-        });
-
-        setMenData(filterded);
-        setTotalPage(Math.floor(filterded.length / pageSize));
-        setTotalProducts(filterded.length);
-      } else {
-        getMenData();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handlePriceFilterChange = async (event) => {
-    try {
-      const { data } = await axios.get(
-        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
-      );
-
-      if (event.target.checked) {
-        let filterded = data.allProduct.filter((item) => {
-          return +item.discountPrice < +event.target.value;
-        });
-
-        setMenData(filterded);
-        setTotalPage(Math.floor(filterded.length / pageSize));
-        setTotalProducts(filterded.length);
-      } else {
-        getMenData();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleRattingFilter = async (event) => {
-    try {
-      const { data } = await axios.get(
-        `https://teal-vast-piglet.cyclic.app/product/men?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`
-      );
-
-      if (event.target.checked) {
-        let filterded = data.allProduct.filter((item) => {
-          return item.rating === event.target.value;
-        });
-
-        setMenData(filterded);
-        setTotalPage(Math.floor(filterded.length / pageSize));
-        setTotalProducts(filterded.length);
-      } else {
-        getMenData();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [pages, setPage] = useState("1");
+  const [pageSizes, setPageSize] = useState("15");
+  const [category, setCategory] = React.useState("men");
+  const dispatch = useDispatch();
+  const { allProduct, page, pageSize, total, totalPages } = useSelector(
+    (store) => store.ProductReducer.Products
+  );
 
   useEffect(() => {
-    getMenData();
-    console.log("sort", sortBy);
-  }, [page, search, sortBy, sortOrder]);
+    dispatch(
+      getProductData({ pages, pageSizes, sortBy, sortOrder, category, search })
+    );
+  }, [pages, search, sortBy, sortOrder]);
   return (
     <>
-      {isLargerThan800 ? (
-        <Navbar setSearch={setSearch} searchDone={getMenData} />
-      ) : (
-        <MobileNav />
-      )}
+      {isLargerThan800 ? <Navbar /> : <MobileNav />}
 
       <div
         style={{
@@ -187,7 +110,7 @@ function Mens() {
                     <Stack spacing={5} direction="column">
                       <Checkbox
                         value={199}
-                        onChange={handlePriceFilterChange}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -199,7 +122,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={299}
-                        onChange={handlePriceFilterChange}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -211,7 +134,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={599}
-                        onChange={handlePriceFilterChange}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -223,7 +146,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={799}
-                        onChange={handlePriceFilterChange}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -235,7 +158,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={999}
-                        onChange={handlePriceFilterChange}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -268,7 +191,7 @@ function Mens() {
                     <Stack spacing={5} direction="column">
                       <Checkbox
                         value={"shoes"}
-                        onChange={handleCategory}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -280,7 +203,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={"jeans"}
-                        onChange={handleCategory}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -292,7 +215,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={"kit"}
-                        onChange={handleCategory}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -304,7 +227,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={"tshirt"}
-                        onChange={handleCategory}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -316,7 +239,7 @@ function Mens() {
                       </Checkbox>
                       <Checkbox
                         value={"pants"}
-                        onChange={handleCategory}
+                        onChange={""}
                         borderRadius={"15px"}
                         mt="5px"
                         padding="10px"
@@ -326,31 +249,6 @@ function Mens() {
                       >
                         Pants
                       </Checkbox>
-                      {/* <Checkbox
-                        value={"womens-shoes"}
-                        onChange={categoryFilter}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        womens-shoes
-                      </Checkbox>
-
-                      <Checkbox
-                        value={"mens-shoes"}
-                        onChange={categoryFilter}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        mens-shoes
-                      </Checkbox> */}
                     </Stack>
                   </AccordionPanel>
                 </AccordionItem>
@@ -372,11 +270,21 @@ function Mens() {
                   </h2>
                   <AccordionPanel pb={4}>
                     <Stack spacing={5} direction="column">
-                      <Checkbox onChange={handleRattingFilter} value={"1"} colorScheme="green">1.0 Star</Checkbox>
-                      <Checkbox onChange={handleRattingFilter} value={"2"} colorScheme="green">2.0 Star</Checkbox>
-                      <Checkbox onChange={handleRattingFilter} value={"3"} colorScheme="green">3.0 Star</Checkbox>
-                      <Checkbox onChange={handleRattingFilter} value={"4"} colorScheme="green">4.0 Star</Checkbox>
-                      <Checkbox onChange={handleRattingFilter} value={"5"} colorScheme="green">5.0 Star</Checkbox>
+                      <Checkbox onChange={""} value={"1"} colorScheme="green">
+                        1.0 Star
+                      </Checkbox>
+                      <Checkbox onChange={""} value={"2"} colorScheme="green">
+                        2.0 Star
+                      </Checkbox>
+                      <Checkbox onChange={""} value={"3"} colorScheme="green">
+                        3.0 Star
+                      </Checkbox>
+                      <Checkbox onChange={""} value={"4"} colorScheme="green">
+                        4.0 Star
+                      </Checkbox>
+                      <Checkbox onChange={""} value={"5"} colorScheme="green">
+                        5.0 Star
+                      </Checkbox>
                     </Stack>
                   </AccordionPanel>
                 </AccordionItem>
@@ -709,7 +617,7 @@ function Mens() {
             padding="10px"
           >
             <div>
-              <h6>{totalProducts} Items Found</h6>
+              <h6>{total} Items Found</h6>
             </div>
 
             <div>
@@ -720,7 +628,7 @@ function Mens() {
               >
                 <option value="">Select Price</option>
 
-                {Array(totalPage)
+                {Array(totalPages)
                   ?.fill()
                   .map((item, index) => (
                     <option value={index + 1}>{index + 1}</option>
@@ -770,9 +678,11 @@ function Mens() {
               lg: "repeat(3, 1fr) ",
             }}
           >
-            { menData.length > 0 ? menData?.map((item) => (
-              <Card {...item} />
-            )) : <Loader/>}
+            {allProduct ? (
+              allProduct.map((item) => <Card {...item} />)
+            ) : (
+              <Loader />
+            )}
           </Box>
         </Box>
       </div>

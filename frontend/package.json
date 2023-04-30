@@ -16,6 +16,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.0.5",
     "react-remove-scroll": "^2.5.5",
     "react-responsive-carousel": "^3.2.23",
@@ -24,6 +25,7 @@
     "react-slick": "^0.29.0",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
+    "thunk": "^0.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

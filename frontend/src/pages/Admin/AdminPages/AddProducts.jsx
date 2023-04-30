@@ -2,11 +2,11 @@
   import React, { useState } from "react";
   import AdminSidebar from "../AdminComps/Sidebar";
 import { Box,FormControl, FormLabel, Input, Button,Select, Alert, AlertIcon  } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-import { postProductData } from "../../../redux/Products/action";
+// import { useDispatch } from "react-redux";
+// import { postProductData } from "../../../redux/Products/action";
 
   function AddProducts() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [showAlert, setShowAlert] = useState(false);
     const [product, setProduct] = useState({
       src: "",
@@ -22,32 +22,32 @@ import { postProductData } from "../../../redux/Products/action";
     });
   
     const handleInputChange = (event) => {
-      const { name, value } = event.target;
-      setProduct((prevProduct) => ({
-        ...prevProduct,
-        [name]: value
-      }));
+      // const { name, value } = event.target;
+      // setProduct((prevProduct) => ({
+      //   ...prevProduct,
+      //   [name]: value
+      // }));
     };
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      dispatch(postProductData(product));
-      setProduct({
-        src: "",
-        brand: "",
-        category: "",
-        title: "",
-        discountPrice: "",
-        originalPrice: "",
-        discount: "",
-        offer: "",
-        genre: [],
-        rating: ""
-      });
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
+      // dispatch(postProductData(product));
+      // setProduct({
+      //   src: "",
+      //   brand: "",
+      //   category: "",
+      //   title: "",
+      //   discountPrice: "",
+      //   originalPrice: "",
+      //   discount: "",
+      //   offer: "",
+      //   genre: [],
+      //   rating: ""
+      // });
+      // setShowAlert(true);
+      // setTimeout(() => {
+      //   setShowAlert(false);
+      // }, 3000);
     };
     const handleCloseAlert = () => {
       setShowAlert(false);

@@ -7,15 +7,20 @@ import { useNavigate } from "react-router-dom";
 import Logo2 from "../../assets/Images/fashion_flare.png"
 import { SidebarContext } from "../context/SidebarContextProvider";
 import axios from "axios";
+import { useDispatch,useSelector } from "react-redux";
+import { getCartData, getWishlistData } from "../../redux/Cart/action";
 const Navbar = ({ setDone }) => {
   // console.log(cartlength)
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
-  const [cartSize, setCartSize] = useState("")
-  const cartTotal = async () => {
-    const { data } = await axios.get("http://localhost:4000/cart")
-    setCartSize(data.length)
-  }
+  
+ 
+
+  const dispatch = useDispatch();
+  const CartData = useSelector((store) => store.CartReducer.cart);
+  // console.log("redux Product", CartData)
+  const WishlistData = useSelector((store) => store.CartReducer.wishlist);
+  // console.log("wishlist Product", WishlistData)
 
   const navigate = useNavigate();
 
@@ -38,7 +43,9 @@ const Navbar = ({ setDone }) => {
   }
 
   useEffect(() => {
-    cartTotal()
+   
+    dispatch(getCartData())
+    dispatch(getWishlistData())
   }, [])
 
 
@@ -390,7 +397,7 @@ const Navbar = ({ setDone }) => {
               </Box>
             </Link>
 
-            <Link to="/homeandkitchen">
+            <Link to="/kitchen">
               <Box>
                 <Menuitem
                   navitem={"HOME & KITCHEN"}
@@ -515,14 +522,14 @@ const Navbar = ({ setDone }) => {
             <Link to="/cart">
               <Box display="flex" gap={'2'}  >
                 <BsFillBagCheckFill style={{ fontSize: "30px" }} />
-                <Text alignSelf={"end"} as="b" >{cartSize}</Text>
+                <Text alignSelf={"end"} as="b" >{CartData.length}</Text>
               </Box>
             </Link>
 
             <Link to="/wishlist">
               <Box display="flex" gap={'2'}  >
                 <BsFillSuitHeartFill style={{ fontSize: "28px" }} />
-                <Text alignSelf={"end"} as="b" >{ }</Text>
+                <Text alignSelf={"end"} as="b" >{WishlistData.length }</Text>
               </Box>
             </Link>
           </Flex>

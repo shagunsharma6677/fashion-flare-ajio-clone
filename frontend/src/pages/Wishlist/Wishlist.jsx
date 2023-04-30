@@ -1,38 +1,42 @@
 import { Box, Button, Text } from '@chakra-ui/react'
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 // import { useSelector } from "react-redux"
 import { useNavigate } from 'react-router-dom'
 
 import { useMediaQuery } from '@chakra-ui/react'
 import Navbar from '../../component/Navbar/Navbar'
 import MobileNav from '../../component/Navbar/MobileNav'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteWishlistData, getWishlistData } from '../../redux/Cart/action'
 const Wishlist = () => {
     // const dispatch = useDispatch()
     // const wishlist = useSelector(store => store.wishlist)
     // const Products = useSelector((store) => store.ProductReducer.Wishlist);
     // https://magnificent-bass-suit.cyclic.app/wishlist
-    const [wishlist, setwishlist] = React.useState([])
+    // const [wishlist, setwishlist] = React.useState([])
     const [data, setdata] = React.useState([])
+    const [trigger,setTrigger] = useState(0)
     const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
 
+    const dispatch = useDispatch()
+    const {wishlist} = useSelector((store) => store.CartReducer )
     const navigate = useNavigate()
 
-    const getdata = () => {
-        axios.get("http://localhost:4000/wishlist")
-            .then(((res) => setwishlist(res.data)))
-    }
+   
     const handledelete = (id) => {
-        axios.delete(`http://localhost:4000/wishlist/delete/${id}`)
-            .then((res) => setdata(res.data))
+        dispatch(deleteWishlistData(id))
+        setTrigger(trigger +1)
+        
 
     }
     const handltenavigate = () => {
         navigate("/")
     }
     React.useEffect(() => {
-        getdata()
-    });
+        // getdata()
+        dispatch(getWishlistData())
+    },[trigger]);
     return (
         <>
             {isLargerThan800 ? <Navbar /> : <MobileNav />}

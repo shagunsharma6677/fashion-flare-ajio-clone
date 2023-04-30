@@ -1,13 +1,20 @@
-import React from 'react'
-import Home from '../Home/Home'
-import { Route, Routes } from 'react-router-dom'
-import Womens from '../Womens/Womens'
-import Mens from '../Mens/Mens'
-import Kids from '../Kids/Kids'
-import SingleProduct from '../SingleProduct/SingleProduct'
-import CartPage from '../CartPage/CartPage'
-import Wishlist from '../Wishlist/Wishlist'
-import PaymentsPage from '../../component/PaymentModel/PaymentsPage'
+import React from "react";
+import Home from "../Home/Home";
+import { Route, Routes } from "react-router-dom";
+import Womens from "../Womens/Womens";
+import Mens from "../Mens/Mens";
+import Kids from "../Kids/Kids";
+import SingleProduct from "../SingleProduct/SingleProduct";
+import CartPage from "../CartPage/CartPage";
+import Wishlist from "../Wishlist/Wishlist";
+import PaymentsPage from "../../component/PaymentModel/PaymentsPage";
+import Signup from "../login_signup/Signup";
+import Login from "../login_signup/Login";
+import Dashboard from "../Admin/AdminPages/Dashboard";
+import Store from "../Admin/AdminPages/Store";
+import AddProducts from "../Admin/AdminPages/AddProducts";
+import Homeandkitchen from "../Kitchen/Homeandkitchen";
+import PrivateRoute from "./PrivateRoute";
 
 const AllRoutes = () => {
     return (
@@ -17,21 +24,21 @@ const AllRoutes = () => {
                 <Route path="/women" element={<Womens />} />
                 <Route path="/men" element={<Mens />} />
                 <Route path="/kid" element={<Kids />} />
+                <Route path="/kitchen" element={<Homeandkitchen />} />
                 <Route path="/:category/:id" element={<SingleProduct />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                {/* <Route path='/signup' element={<Signup />} /> */}
-                {/* <Route path='/login' element={<Login />} /> */}
-                {/* <Route path='/dashboard' element={<Dashboard />}></Route> */}
-                {/* <Route path='/store' element={<Store />}></Route> */}
+                <Route path="/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
+                <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>  } />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard />}></Route>
+                <Route path="/store" element={<Store />}></Route>
+                <Route path="/addProducts" element={<AddProducts />}></Route>
                 {/* <Route path='/addProduct' element={<AddProducts />}></Route> */}
-
-               
                 {/* <Route path="/payment" element={<PaymentsPage />} /> */}
                 {/* <Route path="/homeandkitchen" element={<Homeandkitchen />} /> */}
             </Routes>
         </div>
-    )
-}
+    );
+};
 
-export default AllRoutes
+export default AllRoutes;

@@ -17,8 +17,9 @@ import { useMediaQuery } from "@chakra-ui/react";
 import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
 import { Card } from "../../component/Card/Card"
-import axios from "axios";
 import {Loader} from "../../component/Loader/Loader"
+import { useDispatch, useSelector } from "react-redux";
+import { getProductData } from "../../redux/Products/action";
 
 function Womens() {
   const [text, settext] = useState("");
@@ -33,33 +34,36 @@ function Womens() {
   const [sortBy, setSortBy] = useState("discountPrice")
   const [sortOrder, setSortOrder] = useState("asc")
   const [search, setSearch] = useState("")
-  const [page, setPage] = useState("1")
-  const [pageSize, setPageSize] = useState("15")
+  const [pages, setPage] = useState("1")
+  const [pageSizes, setPageSize] = useState("15")
   const [totalPage, setTotalPage] = useState(null)
   const [totalProducts, setTotalProducts] = useState("")
+  const [category, setCategory] = React.useState("women")
+  const dispatch = useDispatch();
+  const { allProduct, page, pageSize, total, totalPages } = useSelector((store) => store.ProductReducer.Products);
+  console.log("redux Product", allProduct)
 
   const handleSearch = () => {
     
   }
 
   const getWomenData = async () => {
-    try {
-      const { data } = await axios.get(`https://teal-vast-piglet.cyclic.app/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
-      setWomenData(data.allProduct)
-      setTotalPage(data.totalPages)
-      setTotalProducts(data.total)
+    // try {
+    //   const { data } = await axios.get(`https://teal-vast-piglet.cyclic.app/product/women?&page=${page}&pageSize=${pageSize}&sortBy=${sortBy}&order=${sortOrder}&search=${search}`)
+    //   setWomenData(data.allProduct)
+    //   setTotalPage(data.totalPages)
+    //   setTotalProducts(data.total)
 
-      console.log(data)
-    }
-    catch (err) {
-      console.log(err)
-    }
+    //   console.log(data)
+    // }
+    // catch (err) {
+    //   console.log(err)
+    // }
   }
 
   useEffect(() => {
-    getWomenData()
-    // console.log("sort",sortBy)
-  }, [page,search,sortBy,sortOrder]);
+    dispatch(getProductData({ pages, pageSizes, sortBy, sortOrder, category, search }))
+  }, [pages, search, sortBy, sortOrder]);
   return (
     <>
       {isLargerThan800 ? <Navbar  /> : <MobileNav />}
@@ -649,7 +653,7 @@ function Womens() {
             padding="10px"
           >
             <div>
-              <h6>{totalProducts} Items Found</h6>
+              <h6>{total} Items Found</h6>
             </div>
 
             <div>
@@ -701,7 +705,7 @@ function Womens() {
             }}
 
           >
-            { womenData.length > 0 ? womenData.map((item) => <Card {...item} />) : <Loader/>}
+            { allProduct ? allProduct.map((item) => <Card {...item} />) : <Loader/>}
           </Box>
         </Box>
       </div>

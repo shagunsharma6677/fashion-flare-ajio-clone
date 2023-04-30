@@ -1,24 +1,26 @@
 
 import React, { useEffect, useState } from 'react';
 import "../../Mens/Mens.css";
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, FormLabel, Input, Button,Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody  } from "@chakra-ui/react";
-import { deleteSingleData, getProductData, patchSingleData } from "../../../redux/Products/action";
+// import { deleteSingleData, getProductData, patchSingleData } from "../../../redux/Products/action";
 import "./store.css";
-import AdminSidebar from '../AdminComps/Sidebar';
+// import AdminSidebar from '../AdminComps/Sidebar';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import AdminSidebar from '../AdminComps/Sidebar';
 
 const Store = () => {
   const [gender, setGender] = useState("men");
   const [editData, setEditData] = useState({});
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({});
-  const dispatch = useDispatch();
-  const Products = useSelector(store => store.ProductReducer.Products);
+  // const dispatch = useDispatch();
+  // const Products = useSelector(store => store.ProductReducer.Products);
+  const Products = () => {}
   
   const handleGenderChange = (e) => {
-    setGender(e.target.value);
-    dispatch(getProductData(e.target.value));
+    // setGender(e.target.value);
+    // dispatch(getProductData(e.target.value));
   };
 
   const handleEdit = (id, updatedData) => {
@@ -28,20 +30,20 @@ const Store = () => {
   };
 
   const handleUpdate = (id, updatedData) => {
-    dispatch(patchSingleData(id, updatedData)).then(() => { 
-      dispatch(getProductData(gender));
-      setShowForm(false);
-    });
+    // dispatch(patchSingleData(id, updatedData)).then(() => { 
+    //   dispatch(getProductData(gender));
+    //   setShowForm(false);
+    // });
   };
    
   const handleDelete = (id) => {
-    dispatch(deleteSingleData(id)).then(() => {
-      dispatch(getProductData(gender));
-    });
+    // dispatch(deleteSingleData(id)).then(() => {
+    //   dispatch(getProductData(gender));
+    // });
   };
   
   useEffect(() => {
-    dispatch(getProductData('men'));
+    // dispatch(getProductData('men'));
   }, []);
 
 

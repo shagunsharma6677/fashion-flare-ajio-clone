@@ -8,9 +8,12 @@ import { useMediaQuery } from "@chakra-ui/react";
 import Navbar from "../../component/Navbar/Navbar";
 import MobileNav from "../../component/Navbar/MobileNav";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleData } from "../../redux/Products/action";
+import { addToCart,addToWishlist } from "../../redux/Cart/action";
 
 const SingleProduct = () => {
-  const [singleProd, setSingleProd] = React.useState([]);
+  const [Product, setSingleProd] = React.useState([]);
   const toast = useToast();
   const { isOpen, onToggle } = useDisclosure();
   const [size, setSize] = useState("");
@@ -19,55 +22,54 @@ const SingleProduct = () => {
   const { id ,category} = useParams();
 
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
+
+  const dispatch = useDispatch();
+  const ProductDetail = useSelector((store) => store.ProductReducer.SingleProduct);
+  
+
+  console.log("prodDetail",ProductDetail)
+
+
   const getSingleProd = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://teal-vast-piglet.cyclic.app/product/single/${category}/${id}`
-      );
-      setSingleProd(data);
-      // console.log(data)
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const { data } = await axios.get(
+    //     `https://teal-vast-piglet.cyclic.app/product/single/${category}/${id}`
+    //   );
+    //   setSingleProd(data);
+    //   // console.log(data)
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   const handleSizeChange = (event) => {};
-  const addToWishlist = () => {
-    setText(!text);
-    if (text === true) {
-      axios.post("https://teal-vast-piglet.cyclic.app/wishlist/add", { ...singleProd });
+  // const addToWishlist = () => {
+  //   setText(!text);
+  //   if (text === true) {
+  //     axios.post("https://teal-vast-piglet.cyclic.app/wishlist/add", { ...ProductDetail });
 
-      toast({
-        title: `Product Added to Wishlist Successfully`,
-        position: "top",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
+  //     toast({
+  //       title: `Product Added to Wishlist Successfully`,
+  //       position: "top",
+  //       status: "success",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
 
-  const addtobag = () => {
-    // setcount(count++);
-    axios.post("https://teal-vast-piglet.cyclic.app/cart/add", singleProd);
-    toast({
-      title: `Product Added to Cart Successfully`,
-      position: "top",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
+  
 
   const navigateto = () => {
     navigate("/womens");
   };
 
   useEffect(() => {
-    getSingleProd();
+    // getSingleProd();
+    dispatch(getSingleData({category,id}))
   }, []);
   return (
     <>
-      {isLargerThan800 ? <Navbar /> : <MobileNav />}
+      {isLargerThan800 ? <Navbar  /> : <MobileNav />}
       <Box
         display={{ base: "grid", md: "flex", lg: "flex" }}
         justifyContent="space-evenly"
@@ -81,8 +83,8 @@ const SingleProduct = () => {
               placeItems={"center"}
               style={{ padding: "30px" }}
               width={{ base: "250px", md: "350px", lg: "400px" }}
-              src={singleProd.src}
-              alt={singleProd.brand}
+              src={ProductDetail.src}
+              alt={ProductDetail.brand}
             />
 
             <div style={{ textAlign: "center" }}>
@@ -117,9 +119,9 @@ const SingleProduct = () => {
 
         <div style={{ textAlign: "center", padding: "10px" }}>
           <div style={{ textAlign: "center", padding: "10px" }}>
-            <h5 style={{ color: "rgb(177, 153, 117)" }}>{singleProd.brand}</h5>
+            <h5 style={{ color: "rgb(177, 153, 117)" }}>{ProductDetail.brand}</h5>
             <h5 style={{ fontSize: "16px", width: "300px", margin: "auto" }}>
-              {singleProd.title}
+              {ProductDetail.title}
             </h5>
 
             <div
@@ -131,18 +133,18 @@ const SingleProduct = () => {
               }}
             >
               <div style={{ color: "rgb(177, 153, 117)" }}>
-                {`${singleProd.discountPrice}`}{" "}
+                {`${ProductDetail.discountPrice}`}{" "}
                 <span style={{ textDecoration: "line-through" }}>
-                  {singleProd.orginalPrice}
+                  {ProductDetail.orginalPrice}
                 </span>{" "}
               </div>
               <p style={{ color: "rgb(177, 153, 117)" }}>
-                {singleProd.discount}{" "}
+                {ProductDetail.discount}{" "}
               </p>
             </div>
 
             <h5 style={{ color: "rgb(58,182,73)" }}>
-              Offer Price ₹{singleProd.offer}
+              Offer Price ₹{ProductDetail.offer}
             </h5>
             <p>Price Inclusive Of All Taxes</p>
             <select
@@ -177,7 +179,7 @@ const SingleProduct = () => {
               Select your size to know your estimated delivery date.
             </Text>
             <Button
-              onClick={addtobag}
+              onClick={() => dispatch(addToCart(ProductDetail))}
               bg={"rgb(213,162,73)"}
               width={300}
               padding={"5px"}
@@ -197,7 +199,7 @@ const SingleProduct = () => {
             </Text>
             <Button
               bg={text ? "rgb(213,162,73)" : "red.600"}
-              onClick={addToWishlist}
+              onClick={() => dispatch(addToWishlist(ProductDetail))}
               width={300}
               padding={"5px"}
               margin="auto"
@@ -227,15 +229,15 @@ const SingleProduct = () => {
             >
               Product Details
             </h1>
-            <li>Brand:{singleProd.brand}</li>
+            <li>Brand:{ProductDetail.brand}</li>
             <li>5-pocket styling</li>
             <li>
-              Package contains: <span> {singleProd.nameCls}</span>{" "}
+              Package contains: <span> {ProductDetail.nameCls}</span>{" "}
             </li>
             <li>Machine wash cold</li>
             <li>High Rise</li>
             <li>99% cotton, 1% elastane</li>
-            <li>Product Code: {singleProd._id}</li>
+            <li>Product Code: {ProductDetail._id}</li>
           </div>
         </div>
       </Box>
@@ -253,7 +255,7 @@ const SingleProduct = () => {
                 marginTop: "100px",
               }}
             >
-              About {singleProd.brand}
+              About {ProductDetail.brand}
             </h1>
             <hr
               style={{
@@ -277,7 +279,7 @@ const SingleProduct = () => {
                 borderRadius: "600px",
               }}
             >
-              <h1>{singleProd.brand}</h1>
+              <h1>{ProductDetail.brand}</h1>
             </div>
             <p
               style={{
@@ -299,7 +301,7 @@ const SingleProduct = () => {
         </div>
 
         <div>
-          <h1
+          {/* <h1
             style={{
               fontFamily: "Lora",
               fontSize: "26px",
@@ -310,8 +312,8 @@ const SingleProduct = () => {
             }}
           >
             Shop more
-          </h1>
-          <hr
+          </h1> */}
+          {/* <hr
             style={{
               display: "block",
               marginLeft: "auto",
@@ -319,10 +321,10 @@ const SingleProduct = () => {
               borderStyle: "inset",
               borderWidth: "1px",
             }}
-          />
-          <div style={{ margin: "30px 0px", padding: "10px" }}>
-            {/* <Carousel /> */}
-          </div>
+          /> */}
+          {/* <div style={{ margin: "30px 0px", padding: "10px" }}>
+            <Carousel />
+          </div> */}
           <Box
             display={{ base: "grid", md: "flex" }}
             style={{
@@ -345,7 +347,7 @@ const SingleProduct = () => {
             </div>
             <div style={{ padding: "30px", background: "rgb(248,248,248)" }}>
               {" "}
-              <h1>Brand:{singleProd.brand}</h1>
+              <h1>Brand:{ProductDetail.brand}</h1>
             </div>
           </Box>
         </div>

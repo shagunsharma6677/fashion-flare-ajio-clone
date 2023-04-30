@@ -27,6 +27,8 @@ import UserCard from "../AdminComps/UserCard";
 function Dashboard() {
   const dispatch = useDispatch();
 
+  console.log("hdefdhdmfkfndf")
+
   const mens = useSelector((store) => {
     return store.ProductReducer.Products
   });
