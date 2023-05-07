@@ -4,7 +4,7 @@ import { BsFillBagCheckFill, BsFillSuitHeartFill } from "react-icons/bs";
 import Menuitem from "./MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Logo2 from "../../assets/Images/fashion_flare.png"
+import Logo2 from "../../assets/Images/Style-Savvy.png"
 import { SidebarContext } from "../context/SidebarContextProvider";
 import axios from "axios";
 import { useDispatch,useSelector } from "react-redux";
@@ -65,8 +65,8 @@ const Navbar = ({ setDone }) => {
           <Link to="/">
             <Image
               src={Logo2}
-              width="150px"
-              height="50px"
+              width="111px"
+              
             ></Image>
           </Link>
         </Box>

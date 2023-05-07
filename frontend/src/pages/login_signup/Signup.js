@@ -85,7 +85,7 @@ export default function SignupCard() {
       password: password,
     };
     if (name && email && password) {
-      fetch(`http://localhost:4000/auth/register`, {
+      fetch(`https://witty-foal-undershirt.cyclic.app/auth/register`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

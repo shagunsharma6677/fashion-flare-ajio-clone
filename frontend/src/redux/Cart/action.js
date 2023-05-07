@@ -1,11 +1,11 @@
 import axios from "axios";
 import { DELCARTREQ, DELWISHLISTREQ, EMPTYCARTREQ, GETCARTREQ, GETWISHLISTREQ, POSTCARTREQ, POSTWISHLISTREQ } from "./action.Type";
-// https://witty-foal-undershirt.cyclic.app/product/men
+// https://style-savvy-backend.onrender.com
 const addToCart = (ProductDetail) => async (dispatch) => {
   const {_id,...payload} = ProductDetail
 
   try {
-    const response = await axios.post("https://witty-foal-undershirt.cyclic.app/cart/add", ProductDetail);
+    const response = await axios.post("https://style-savvy-backend.onrender.com/cart/add", ProductDetail);
     // console.log("inside redux addtocart",response)
     
     dispatch({ type: POSTCARTREQ, payload: response.data });
@@ -14,9 +14,10 @@ const addToCart = (ProductDetail) => async (dispatch) => {
   }
 };
 
+
 const getCartData = () =>async (dispatch) => {
   try {
-    const response = await axios.get("https://witty-foal-undershirt.cyclic.app/cart/");
+    const response = await axios.get("https://style-savvy-backend.onrender.com/cart/");
     // console.log("inside redux",response.data)
     
     dispatch({ type: GETCARTREQ, payload:response.data });
@@ -29,7 +30,7 @@ const getCartData = () =>async (dispatch) => {
 const deleteCartData = (id) =>async (dispatch) => {
   console.log(id)
   try {
-    const response = await axios.delete(`https://witty-foal-undershirt.cyclic.app/cart/delete/${id}`);
+    const response = await axios.delete(`https://style-savvy-backend.onrender.com/cart/delete/${id}`);
     // console.log("inside del",response.data)
     
     dispatch({ type: DELCARTREQ, payload:response.data });
@@ -42,7 +43,7 @@ const deleteCartData = (id) =>async (dispatch) => {
 const deleteWishlistData = (id) =>async (dispatch) => {
   console.log(id)
   try {
-    const response = await axios.delete(`https://witty-foal-undershirt.cyclic.app/wishlist/delete/${id}`);
+    const response = await axios.delete(`https://style-savvy-backend.onrender.com/wishlist/delete/${id}`);
     // console.log("inside del",response.data)
     
     dispatch({ type: DELWISHLISTREQ, payload:response.data });
@@ -55,7 +56,7 @@ const deleteWishlistData = (id) =>async (dispatch) => {
 const emptyCartData = () =>async (dispatch) => {
   
   try {
-    const response = await axios.delete(`https://witty-foal-undershirt.cyclic.app/cart/empty`);
+    const response = await axios.delete(`https://style-savvy-backend.onrender.com/cart/empty`);
     // console.log("inside del",response.data)
     
     dispatch({ type: EMPTYCARTREQ, payload:[] });
@@ -68,7 +69,7 @@ const emptyCartData = () =>async (dispatch) => {
 const addToWishlist = (ProductDetail) => async (dispatch) => {
   const {_id,...payload} = ProductDetail
   try {
-    const response = await axios.post("https://witty-foal-undershirt.cyclic.app/wishlist/add", payload);
+    const response = await axios.post("https://style-savvy-backend.onrender.com/wishlist/add", payload);
     // console.log("inside wishlist",response.data)
     dispatch({ type: POSTWISHLISTREQ, payload: response.data });
   } catch (err) {
@@ -78,7 +79,7 @@ const addToWishlist = (ProductDetail) => async (dispatch) => {
 
 const getWishlistData = () =>async (dispatch) => {
   try {
-    const response = await axios.get("https://witty-foal-undershirt.cyclic.app/wishlist/");
+    const response = await axios.get("https://style-savvy-backend.onrender.com/wishlist/");
     // console.log("inside redux",response.data)
     
     dispatch({ type: GETWISHLISTREQ, payload:response.data });

@@ -37,7 +37,7 @@ export default function SimpleCard() {
   const handleLogin = () => {
     if (email && password) {
       axios
-        .post(`http://localhost:4000/auth/login`, {
+        .post(`https://witty-foal-undershirt.cyclic.app/auth/login`, {
           email: email,
           password: password,
         })
