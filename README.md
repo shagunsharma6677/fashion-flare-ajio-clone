@@ -1,5 +1,5 @@
 # feigned-copper-2423
-# Project Title : Fashion Flare (Ajio.com Clone) Website
+# Project Title : Style Savvy (Ajio.com Clone) Website
 
 This repo is the clone of ajio.com website,AJIO is a shopping and lifestyle brand which is the ultimate destination for the latest fashion styles that are handpicked and are available at the best price that one can find anywhere. 
 
