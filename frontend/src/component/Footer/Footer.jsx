@@ -89,7 +89,7 @@ export default function Footer() {
             flexGrow: 1,
             ml: 8,
           }}>
-          <Text fontSize="30px" fontWeight={"600"}>Fashion Flair</Text>
+          <Text fontSize="30px" fontWeight={"600"}>Style Savvy</Text>
         </Flex>
       </Box>
     </Box>

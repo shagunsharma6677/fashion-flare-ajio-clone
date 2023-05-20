@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-// import AdminSidebar from "../AdminComps/Sidebar";
-
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import React from "react";
+import Sidebar from "./SidebarComp";
 import {
   Box,
   Breadcrumb,
@@ -17,53 +15,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-// import AdminSidebar from "../AdminComps/Sidebar";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getProductData  } from "../../../redux/Products/action";
-// import { deleteUserData, getUSerData } from "../../../redux/Users/action";
-// import UserCard from "../AdminComps/UserCard";
-import AdminSidebar from "../AdminComps/Sidebar";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
-function Dashboard() {
-  // const dispatch = useDispatch();
-
-  // const mens = useSelector((store) => {
-  //   return store.ProductReducer.Products
-  // });
-
-  // const womens = useSelector((store) => {
-  //   return store.ProductReducer.Products
-  // });
-
-  // const kids = useSelector((store) => {
-  //   return store.ProductReducer.Products
-  // });
-
-  // const Users = useSelector((store) => {
-  //   return store.UserReducer.user;
-  // });
-
-  // const Cart = useSelector((store)=>{
-  //   return store.CartReducer.cart;
-  // })
-
-  //  console.log(womens,kids,mens)
-  // useEffect(() => {
-  //   dispatch(getProductData("men"));
-  //   dispatch(getProductData("women"));
-  //   dispatch(getProductData("kid"));
-  //   dispatch(getUSerData());
-  // }, []);
-
-  // const handleDelete = (id) => {
-  //   dispatch(deleteUserData(id)).then((res) => {
-  //     dispatch(getUSerData());
-  //   });
-
-  // };
+const AdminPage = () => {
   return (
     <>
-      <AdminSidebar heading={"Dashboard"}>
+      <Sidebar>
         <Box border={"1px solid re"}>
           <Box>
             <Breadcrumb
@@ -80,13 +37,17 @@ function Dashboard() {
             </Breadcrumb>
           </Box>
         </Box>
-
         <Box>
           <Box
             mt={"25px"}
             border={"1px solid re"}
             display={"grid"}
-            gridTemplateColumns={"repeat(3,1fr)"}
+            gridTemplateColumns={{
+              sm: "repeat(2, 1fr)",
+              md: "repeat(2, 1fr) ",
+              lg: "repeat(3, 1fr) ",
+              xl: "repeat(4, 1fr) ",
+            }}
             justifyContent={"space-between"}
             gap={"25px"}
           >
@@ -192,12 +153,13 @@ function Dashboard() {
             </Box>
           </Box>
         </Box>
+
         <Box>
           <Text my={"20px"} fontSize={"2xl"}>
             Users
           </Text>
         </Box>
-        <Box border={"1px solid re"}>
+        <Box bg={"white"} minH={"100vh"} border={"1px solid re"}>
           <TableContainer>
             <Table variant="striped" colorScheme="pink">
               <Thead>
@@ -225,9 +187,9 @@ function Dashboard() {
             </Table>
           </TableContainer>
         </Box>
-      </AdminSidebar>
+      </Sidebar>
     </>
   );
-}
+};
 
-export default Dashboard;
+export default AdminPage;

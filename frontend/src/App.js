@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <AllRoutes />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

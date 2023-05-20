@@ -15,6 +15,8 @@ import Store from "../Admin/AdminPages/Store";
 import AddProducts from "../Admin/AdminPages/AddProducts";
 import Homeandkitchen from "../Kitchen/Homeandkitchen";
 import PrivateRoute from "./PrivateRoute";
+import AdminPage from "../AdminPage/AdminPage";
+import StorePage from "../AdminPage/StorePage";
 
 const AllRoutes = () => {
     return (
@@ -30,8 +32,9 @@ const AllRoutes = () => {
                 <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>  } />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />}></Route>
-                <Route path="/store" element={<Store />}></Route>
+                {/* <Route path="/dashboard" element={<Dashboard />}></Route> */}
+                <Route path="/Dashboard" element={<AdminPage />}></Route>
+                <Route path="/Store" element={<StorePage />}></Route>
                 <Route path="/addProducts" element={<AddProducts />}></Route>
                 {/* <Route path='/addProduct' element={<AddProducts />}></Route> */}
                 {/* <Route path="/payment" element={<PaymentsPage />} /> */}

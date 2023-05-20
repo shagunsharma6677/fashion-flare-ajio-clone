@@ -9,6 +9,11 @@ import {
   PATCH_REQUEST_FAILURE_ADMIN_SIDE,
 } from "./action.Type";
 
+export const getAllProduct = () => async (dispatch) => {
+  const response = await axios("https://style-savvy-backend.onrender.com/auth");
+  console.log("auth prod", response.data);
+};
+
 export const getRequestAdmin = () => {
   return {
     type: GET_REQUEST_ADMIN_SIDE,
@@ -50,10 +55,12 @@ export const patchRequestFailureAdminSide = () => {
 export const getRequestforAdminSide = (params, category) => (dispatch) => {
   dispatch(getRequestAdmin());
   axios
-    .get(`https://smiling-wear-pig.cyclic.app/product/${category}`, { params })
+    .get(`https://style-savvy-backend.onrender.com/product/${category}`, {
+      params,
+    })
     .then((res) => {
       dispatch(getRequestSuccessAdminSide(res.data, category));
-      console.log(res.data)
+      console.log(res.data);
     })
     .catch((err) => {
       dispatch(getRequestFailureAdminSide());
@@ -65,7 +72,10 @@ export const patchRequestforAdminSide = (id, category, obj) => (dispatch) => {
 
   console.log(id, category, obj, "from action");
   return axios
-    .patch(`https://smiling-wear-pig.cyclic.app/product/${category}/${id}`, obj)
+    .patch(
+      `https://style-savvy-backend.onrender.com/product/${category}/${id}`,
+      obj
+    )
     .then((res) => {
       dispatch(patchRequestSuccessAdminSide());
     })
@@ -77,7 +87,9 @@ export const patchRequestforAdminSide = (id, category, obj) => (dispatch) => {
 export const deleteRequest = (id, category) => (dispatch) => {
   dispatch(getRequestAdmin());
   return axios
-    .delete(`https://smiling-wear-pig.cyclic.app/product/${category}/${id}`)
+    .delete(
+      `https://style-savvy-backend.onrender.com/product/${category}/${id}`
+    )
     .then((response) => {
       //as we are not expecting amy data so this will be same as patch request..
       dispatch(patchRequestSuccessAdminSide());
@@ -90,7 +102,7 @@ export const deleteRequest = (id, category) => (dispatch) => {
 export const postRequestAdminSide = (category, data) => (dispatch) => {
   dispatch(getRequestAdmin);
   axios
-    .post(`https://smiling-wear-pig.cyclic.app/product/${category}`, data)
+    .post(`https://style-savvy-backend.onrender.com/product/${category}`, data)
     .then((res) => {
       console.log(res);
       dispatch(patchRequestSuccessAdminSide());
@@ -103,7 +115,7 @@ export const postRequestAdminSide = (category, data) => (dispatch) => {
 export const addTocartData = (cartData) => (dispatch) => {
   dispatch(getRequestAdmin);
   axios
-    .post(`https://smiling-wear-pig.cyclic.app/cart/`, cartData)
+    .post(`https://style-savvy-backend.onrender.com/cart/`, cartData)
     .then((res) => {
       dispatch(patchRequestSuccessAdminSide());
     })

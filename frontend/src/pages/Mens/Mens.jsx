@@ -55,6 +55,7 @@ function Mens() {
           margin: "auto",
           gap: "80px",
           paddingBottom: "100px",
+          marginTop:"40px"
         }}
       >
         <Box

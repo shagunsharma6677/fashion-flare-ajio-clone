@@ -36,56 +36,13 @@ export default function SignupCard() {
   // const [data, setdata] = useState([]);
 
   const handleSignup = () => {
-    // if (name && email && password) {
-    //   axios
-    //     .post(`https://smiling-wear-pig.cyclic.app/auth/register`, {
-    //       name: name,
-    //       email: email,
-    //       password: password,
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       toast({
-    //         title: `SignIn Successfull`,
-    //         position: "top",
-    //         status: "success",
-    //         duration: 2000,
-    //         isClosable: true,
-    //       });
-    //       navigate("/login")
-    //     })
-    //     .catch((err) => {
-    //       toast({
-    //         title: `Something Went Wrong`,
-    //         position: "top",
-    //         status: "error",
-    //         duration: 2000,
-    //         isClosable: true,
-    //       });
-    //     });
-    // } else {
-    //   toast({
-    //     title: `Something Went Wrong`,
-    //     position: "top",
-    //     status: "error",
-    //     duration: 2000,
-    //     isClosable: true,
-    //   });
-    // }
-    // setEmail("");
-    // setName("");
-    // setPassword("");
-
-    // navigate("/login");
-    // window.location.href = "/login";
-    // console.log(user);
     const payload = {
       name: name,
       email: email,
       password: password,
     };
     if (name && email && password) {
-      fetch(`https://witty-foal-undershirt.cyclic.app/auth/register`, {
+      fetch(`https://style-savvy-backend.onrender.com/auth/register`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
