@@ -39,7 +39,7 @@ const AdminPage = () => {
         </Box>
         <Box>
           <Box
-            mt={"25px"}
+            mt={"10px"}
             border={"1px solid re"}
             display={"grid"}
             gridTemplateColumns={{
@@ -52,8 +52,6 @@ const AdminPage = () => {
             gap={"25px"}
           >
             <Box
-              // w={"28%"}
-
               display={"flex"}
               boxShadow={
                 "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;"
@@ -61,15 +59,18 @@ const AdminPage = () => {
               bg={"#fff"}
               border={"1px solid gre"}
               borderRadius={"15px"}
+              p={"10px"}
             >
               <Box
                 border={"1px solid blu"}
                 display={"flex"}
                 justifyContent={"center"}
-                w={"50%"}
+                w={"55%"}
+                boxSizing="border-box"
+                p={"10px"}
               >
                 <Image
-                  w={"80%"}
+                  w={"65%"}
                   src="https://www.canadianginsengfarm.com/wp-content/uploads/2018/03/Product-Icon.png"
                 />
               </Box>
@@ -97,15 +98,17 @@ const AdminPage = () => {
               bg={"#fff"}
               border={"1px solid gre"}
               borderRadius={"15px"}
+              p={"10px"}
             >
               <Box
                 border={"1px solid blu"}
                 display={"flex"}
                 justifyContent={"center"}
-                w={"50%"}
+                w={"55%"}
+                boxSizing="border-box"
               >
                 <Image
-                  w={"80%"}
+                  w={"65%"}
                   src="https://tse3.mm.bing.net/th?id=OIP.vimRlYxVLqkgJONW7V1jEgHaHK&pid=Api&P=0"
                 />
               </Box>
@@ -116,7 +119,7 @@ const AdminPage = () => {
                 alignItems={"center"}
               >
                 <Text fontSize={"2xl"}>Total Orders</Text>
-                <Text fontSize={"2xl"}>2</Text>
+                <Text fontSize={"2xl"}></Text>
               </Box>
             </Box>
             <Box
@@ -129,15 +132,17 @@ const AdminPage = () => {
               bg={"#fff"}
               border={"1px solid gre"}
               borderRadius={"15px"}
+              p={"10px"}
             >
               <Box
                 border={"1px solid blu"}
                 display={"flex"}
                 justifyContent={"center"}
-                w={"50%"}
+                w={"55%"}
+                boxSizing="border-box"
               >
                 <Image
-                  w={"80%"}
+                  w={"60%"}
                   src="https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png"
                 />
               </Box>
@@ -155,11 +160,11 @@ const AdminPage = () => {
         </Box>
 
         <Box>
-          <Text my={"20px"} fontSize={"2xl"}>
+          <Text my={"10px"} fontSize={"2xl"}>
             Users
           </Text>
         </Box>
-        <Box bg={"white"} minH={"100vh"} border={"1px solid re"}>
+        <Box bg={"white"} minH={"55vh"} border={"1px solid re"}>
           <TableContainer>
             <Table variant="striped" colorScheme="pink">
               <Thead>

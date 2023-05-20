@@ -69,13 +69,13 @@ const AddProductsPage = () => {
       product.rating)
     ) {
       addProduct(product);
-    } else {
-      toast({
-        title: `Something went Wrong`,
-        position: "top",
-        isClosable: true,
-        status: "error",
-      });
+    }else{
+        toast({
+            title: `Something went Wrong`,
+            position: "top",
+            isClosable: true,
+            status: "error",
+          });
     }
   };
 

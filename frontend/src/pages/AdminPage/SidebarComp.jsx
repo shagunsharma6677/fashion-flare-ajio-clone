@@ -21,6 +21,9 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Stack,
+  Popover,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -38,7 +41,7 @@ import { ReactText } from "react";
 export default function Sidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box  bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -72,7 +75,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      w={{ base: "full", md: "56" }}
       pos="fixed"
       h="full"
       {...rest}
@@ -129,19 +132,22 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const LinkItems = [
-  { name: "Dashboard", icon: FiHome,href:"dashboard" },
-  { name: "Store", icon: FiTrendingUp , href:"store" },
-  { name: "Add Product", icon: FiCompass,href:"addProducts"  },
+  { name: "Dashboard", icon: FiHome, href: "dashboard" },
+  { name: "Store", icon: FiTrendingUp, href: "store" },
+  { name: "Add Product", icon: FiCompass, href: "addProducts" },
   //   { name: "Favourites", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const popoverContentBgColor = useColorModeValue("white", "gray.800");
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
+      ml={{ base: 0, md: 56 }}
       px={{ base: 4, md: 4 }}
-      height="20"
+      height="16"
       alignItems="center"
       bg={useColorModeValue("white", "gray.900")}
       borderBottomWidth="1px"
@@ -149,6 +155,29 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >
+      <Stack direction={"row"} spacing={4}>
+        {NAV_ITEMS.map((navItem) => (
+          <Box key={navItem.label}>
+            <Popover trigger={"hover"} placement={"bottom-start"}>
+              <PopoverTrigger>
+                <Link
+                  p={2}
+                  href={navItem.href ?? "#"}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: "none",
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Link>
+              </PopoverTrigger>
+            </Popover>
+          </Box>
+        ))}
+      </Stack>
       <IconButton
         display={{ base: "flex", md: "none" }}
         onClick={onOpen}
@@ -219,3 +248,22 @@ const MobileNav = ({ onOpen, ...rest }) => {
     </Flex>
   );
 };
+
+const NAV_ITEMS = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Mens",
+    href: "men",
+  },
+  {
+    label: "Womens",
+    href: "women",
+  },
+  {
+    label: "Kids",
+    href: "kid",
+  },
+];

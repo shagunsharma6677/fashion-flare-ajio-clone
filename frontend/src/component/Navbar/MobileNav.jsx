@@ -1,22 +1,13 @@
 import React, { useContext } from "react";
-import Logo2 from "../../assets/Images/fashion_flare.png"
-import {
-  Flex,
-  Box,
-  Text,
-  Image,
-  Button,
-} from "@chakra-ui/react";
+import Logo2 from "../../assets/Images/fashion_flare.png";
+import { Flex, Box, Text, Image, Button } from "@chakra-ui/react";
 import MobileItem from "./MobileItem";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { BsFillBagCheckFill,BsFillSuitHeartFill } from "react-icons/bs";
+import { BsFillBagCheckFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SidebarContext } from "../context/SidebarContextProvider";
 
 const MobileNav = () => {
-
-
-
   const { cartData, setCartData, cartLength, setCartLength, setCategory } =
     useContext(SidebarContext);
 
@@ -34,36 +25,23 @@ const MobileNav = () => {
       >
         <MobileItem
           nameitem={<GiHamburgerMenu />}
-          item1={<Link to="/women">
-            WOMENS
-          </Link>}
-          item2={<Link to="/men">
-            MENS
-          </Link>}
-          item3={<Link to="/kid">
-            KIDS
-          </Link>}
-          item4={<Link to="/homeandkitchen">
-            HOME & KITCHEN
-          </Link>}
-          
+          item1={<Link to="/women">WOMENS</Link>}
+          item2={<Link to="/men">MENS</Link>}
+          item3={<Link to="/kid">KIDS</Link>}
+          item4={<Link to="/homeandkitchen">HOME & KITCHEN</Link>}
         />
         <Box>
           <Link to="/">
-            <Image
-              src={Logo2}
-              width="100px"
-              margin="auto"
-            ></Image>
+            <Image src={Logo2} width="100px" margin="auto"></Image>
           </Link>
         </Box>
         <Link to="/login">
-          <Button colorScheme="red" size="sm">SignIn</Button>
+          <Button colorScheme="red" size="sm">
+            SignIn
+          </Button>
         </Link>
         <Link to="/cart">
-
           <Box
-
             right="20px"
             width={"fit-content"}
             height="1rem"
@@ -78,9 +56,7 @@ const MobileNav = () => {
           </Box>
         </Link>
         <Link to="/wishlist">
-
           <Box
-
             right="20px"
             width={"fit-content"}
             height="1rem"
@@ -89,9 +65,7 @@ const MobileNav = () => {
             gap="3"
           >
             <BsFillSuitHeartFill style={{ fontSize: "30px" }} />
-            <Text as="b" fontSize={"xs"}>
-              
-            </Text>
+            <Text as="b" fontSize={"xs"}></Text>
           </Box>
         </Link>
       </Flex>
