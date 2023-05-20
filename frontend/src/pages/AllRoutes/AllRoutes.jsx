@@ -17,6 +17,7 @@ import Homeandkitchen from "../Kitchen/Homeandkitchen";
 import PrivateRoute from "./PrivateRoute";
 import AdminPage from "../AdminPage/AdminPage";
 import StorePage from "../AdminPage/StorePage";
+import AddProductsPage from "../AdminPage/AddProducts";
 
 const AllRoutes = () => {
     return (
@@ -33,9 +34,9 @@ const AllRoutes = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 {/* <Route path="/dashboard" element={<Dashboard />}></Route> */}
-                <Route path="/Dashboard" element={<AdminPage />}></Route>
-                <Route path="/Store" element={<StorePage />}></Route>
-                <Route path="/addProducts" element={<AddProducts />}></Route>
+                <Route path="/dashboard" element={<AdminPage />}></Route>
+                <Route path="/store" element={<StorePage />}></Route>
+                <Route path="/addProducts" element={<AddProductsPage />}></Route>
                 {/* <Route path='/addProduct' element={<AddProducts />}></Route> */}
                 {/* <Route path="/payment" element={<PaymentsPage />} /> */}
                 {/* <Route path="/homeandkitchen" element={<Homeandkitchen />} /> */}

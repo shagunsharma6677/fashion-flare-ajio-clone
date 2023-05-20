@@ -85,7 +85,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
-          <Link href={link.name}>{link.name}</Link>
+          <Link href={link.href}>{link.name}</Link>
         </NavItem>
       ))}
     </Box>
@@ -129,9 +129,9 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const LinkItems = [
-  { name: "Dashboard", icon: FiHome },
-  { name: "Store", icon: FiTrendingUp },
-  { name: "Add Product", icon: FiCompass },
+  { name: "Dashboard", icon: FiHome,href:"dashboard" },
+  { name: "Store", icon: FiTrendingUp , href:"store" },
+  { name: "Add Product", icon: FiCompass,href:"addProducts"  },
   //   { name: "Favourites", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];

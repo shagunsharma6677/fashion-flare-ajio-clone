@@ -6,16 +6,24 @@ import {
   FormLabel,
   Input,
   Button,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
+  // Drawer,
+  // DrawerOverlay,
+  // DrawerContent,
+  // DrawerHeader,
+  // DrawerBody,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Divider,
+  useDisclosure,
 } from "@chakra-ui/react";
 import "./store.css";
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -28,16 +36,54 @@ import { Loader } from "../../component/Loader/Loader";
 
 const StorePage = () => {
   const [store, setStore] = React.useState([]);
+  const [editable, setEditable] = React.useState({});
   const getAdminData = async () => {
     const allProduct = await axios.get("http://localhost:4000/product");
     // console.log("alladminProd", allProduct.data);
     setStore(allProduct.data);
   };
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+
+  const handleEdit = (payload) => {
+    setEditable(payload);
+    console.log(payload);
+    onOpen();
+  };
+
+  const handleSave = async () => {
+    try {
+      const { _id, payload } = editable;
+      const response = await axios.put(
+        `http://localhost:4000/product/update/${_id}`,
+        editable
+      );
+      console.log("patch", response.data);
+      getAdminData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDelete = async ({ _id }) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/product/delete/${_id}`
+      );
+      console.log("delete", response.data);
+      getAdminData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    getAdminData();
+    getAdminData()
   }, []);
-  console.log("store", store);
+  // console.log("store", store);
 
   return (
     <Sidebar heading={"Store"}>
@@ -86,7 +132,7 @@ const StorePage = () => {
             <div>
               <label htmlFor="sort-select">Sort by Category:</label>
               <select onChange={""} id="sort-select">
-              <option value="All">All</option>
+                <option value="All">All</option>
                 <option value="">Mens</option>
                 <option value="discountPrice">Womens</option>
                 <option value="rating">Kids</option>
@@ -116,7 +162,6 @@ const StorePage = () => {
           bg={"white"}
           marginTop={"20px"}
           gridTemplateColumns={{
-            
             sm: "repeat(2, 1fr)",
             md: "repeat(2, 1fr) ",
             lg: "repeat(3, 1fr) ",
@@ -126,42 +171,121 @@ const StorePage = () => {
           {store ? (
             store?.map((item) => {
               return (
-                <Box>
-                  <div className="card-cont">
-                    <div className="img-div">
-                      <img src={item.src} alt={item.brand} />
-                    </div>
-                    <div className="card-content-wrap">
-                      <div className="card-content">
-                        <div>{item.brand}</div>
-                        <div>{item.title}</div>
-                        <div>{item.discountPrice}</div>
-                        <div>
-                          Get it at {item.offer} {item.discount}
-                        </div>
-                        <div
-                          style={{ display: "flex",gap:"10px",justifyContent:"center",marginTop:"15px" }}
-                        >
-                          <Button colorScheme="green">Edit</Button>
-                          <Button colorScheme="red">Delete</Button>
-                          {/* <ReactStars
-                            count={5}
-                            onChange={ratingChanged}
-                            size={24}
-                            value={Number(rating)}
-                            activeColor="#ffd700"
-                          /> */}
+                <>
+                  <Box>
+                    <div className="card-cont">
+                      <div className="img-div">
+                        <img src={item.src} alt={item.brand} />
+                      </div>
+                      <div className="card-content-wrap">
+                        <div className="card-content">
+                          <div>{item.brand}</div>
+                          <div>{item.title}</div>
+                          <div>{item.discountPrice}</div>
+                          <div>
+                            Get it at {item.offer} {item.discount}
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "10px",
+                              justifyContent: "center",
+                              marginTop: "15px",
+                            }}
+                          >
+                            <Button
+                              onClick={() => handleEdit(item)}
+                              colorScheme="green"
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(item)}
+                              colorScheme="red"
+                            >
+                              Delete
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Box>
+                  </Box>
+                </>
               );
             })
           ) : (
             <Loader />
           )}
         </Box>
+
+        <Modal
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <ModalOverlay />
+
+          <ModalContent>
+            <ModalHeader>Edit Product Details</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormControl>
+                <FormLabel>Title</FormLabel>
+                <Input
+                  value={editable.title}
+                  onChange={(e) =>
+                    setEditable({ ...editable, title: e.target.value })
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Brand</FormLabel>
+                <Input
+                  value={editable.brand}
+                  onChange={(e) =>
+                    setEditable({ ...editable, brand: e.target.value })
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Image</FormLabel>
+                <Input
+                  value={editable.src}
+                  onChange={(e) =>
+                    setEditable({ ...editable, src: e.target.value })
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Price</FormLabel>
+                <Input
+                  value={editable.discountPrice}
+                  onChange={(e) =>
+                    setEditable({ ...editable, discountPrice: e.target.value })
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Offer</FormLabel>
+                <Input
+                  value={editable.offer}
+                  onChange={(e) =>
+                    setEditable({ ...editable, offer: e.target.value })
+                  }
+                />
+              </FormControl>
+              {/* <Button onClick={""}>Update</Button> */}
+            </ModalBody>
+
+            <ModalFooter>
+              <Button onClick={handleSave} colorScheme="blue" mr={3}>
+                Save
+              </Button>
+              <Button onClick={onClose}>Cancel</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     </Sidebar>
   );

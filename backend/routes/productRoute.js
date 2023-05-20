@@ -76,6 +76,23 @@ productRoute.patch("/update/:_id", async (req, res) => {
   }
 });
 
+productRoute.put("/update/:_id", async (req, res) => {
+  const { _id } = req.params;
+  // console.log("param",param)
+  const payload = req.body;
+  try {
+    const singleProduct = await ProductModel.findByIdAndUpdate(
+      { _id: _id },
+      payload
+    );
+    console.log(singleProduct);
+    res.status(200).send(singleProduct);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+
 productRoute.delete("/delete/:_id", async (req, res) => {
   const { _id } = req.params;
   // console.log("param",param)
