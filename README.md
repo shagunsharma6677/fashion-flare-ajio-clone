@@ -22,41 +22,35 @@ This repo is the clone of ajio.com website,AJIO is a shopping and lifestyle bran
 
 ### * Sign-In page
 
-![login1](https://user-images.githubusercontent.com/106108504/221401943-6a56fb36-cb70-4ae9-994b-cb98c9e63d67.png)
+![auth](https://user-images.githubusercontent.com/108183568/236767661-d77f5b63-f922-4d80-ab12-6e344b8ec9af.jpeg)
 
 ### * Home Page 
 
-![home1](https://user-images.githubusercontent.com/106108504/221401830-52ba33d9-9c7e-459c-a641-c0e72950f325.png)
+![pic1](https://user-images.githubusercontent.com/108183568/236765667-22793952-98bf-4617-9b41-4ef0ac0ffe36.jpeg)
 
 ### * Navbar and Drop down
 
-![navbar1](https://user-images.githubusercontent.com/106108504/221401922-c8cb6426-aee6-4fc2-9028-34d264d13d2f.png)
+![nav1](https://user-images.githubusercontent.com/108183568/236766244-41b4e838-054e-4ed3-93f3-8c8e79ce0a47.jpeg)
 
 ### * Mens page
 
-![mens1](https://user-images.githubusercontent.com/106108504/221402043-295083c1-e6dc-40c9-bca5-8ad96988ff3b.png)
-
+![mens](https://user-images.githubusercontent.com/108183568/236766687-9db79b6b-63ed-49ab-aa31-75766f7a7381.jpeg)
 
 ### * Products detail page
 
-![productdetails1](https://user-images.githubusercontent.com/106108504/221402132-e6cbd03b-32e8-4331-9209-6a3dc3b593cb.png)
+![detail](https://user-images.githubusercontent.com/108183568/236767281-076b1633-c925-499e-9eaf-479082a1d026.jpeg)
 
 ### * Cart page
 
-![cart1](https://user-images.githubusercontent.com/106108504/221402095-4cd711d2-60e7-4346-b8ca-2d54eeb77923.png)
-
+![cart](https://user-images.githubusercontent.com/108183568/236769897-69b75e3a-9d1f-4c52-91c9-eb1887f92314.jpeg)
 
 ### * Payment page
 
-![payment1](https://user-images.githubusercontent.com/106108504/221402244-d055d65a-c77b-4bc6-b138-2018ae7b3a6c.png)
-
-![payment2](https://user-images.githubusercontent.com/106108504/221402253-64582182-4ccf-427f-a24a-d269ca3217c2.png)
-
+![payment](https://user-images.githubusercontent.com/108183568/236770330-3844a281-8822-4c97-909a-d2e8b65d9bc7.jpeg)
 
 ### * Footer 
 
-![footer1](https://user-images.githubusercontent.com/106108504/221401931-4e0cab75-aaf5-4f05-a8fb-30925dd40eec.png)
-
+![footer](https://user-images.githubusercontent.com/108183568/236771153-3f717803-6964-4150-a967-a7aedf632397.jpeg)
 
 
 
