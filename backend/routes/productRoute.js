@@ -3,36 +3,14 @@ const { ProductModel } = require("../models/productModel");
 
 const productRoute = express.Router();
 
-//Get All Product
-//Get By Category
-
-// productRoute.get("/dummy/:category", async (req, res) => {
-//   const { search, sort, category } = req.query;
-//   const page = parseInt(req.query.page) || 1;
-//   const pageSize = parseInt(req.query.pageSize) || 15;
-//   const startIndex = (page - 1) * pageSize;
-
-//   let query = {};
-//   if (search) {
-//     query.title = { $regex: search, $options: "i" };
-//   }
-
-//   // Filtering
-//   if (sort) {
-//     query.category = sort;
-//   }
-//   const results = await ProductModel.find(
-//     { category: req.params.category },
-//     query
-//   )
-//     .skip(startIndex)
-//     .limit(pageSize);
-//   res.json({
-//     page,
-//     pageSize,
-//     results,
-//   });
-// });
+productRoute.get("/", async (req, res) => {
+  try {
+    const allProduct = await ProductModel.find();
+    res.send(allProduct);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 productRoute.get("/:category", async (req, res) => {
   try {
@@ -43,7 +21,6 @@ productRoute.get("/:category", async (req, res) => {
     const order = req.query.order || "asc";
     const sortBy = req.query.sortBy || "discountPrice";
     let query = {};
-   
 
     if (search) {
       query.title = { $regex: search, $options: "i" };
@@ -56,9 +33,9 @@ productRoute.get("/:category", async (req, res) => {
     if (sortBy) {
       sortQuery[sortBy] = order === "asc" ? 1 : -1;
     }
-   
-console.log(sortQuery)
-  
+
+    console.log(sortQuery);
+
     const totalPages = Math.ceil(total / pageSize);
 
     const allProduct = await ProductModel.find(
