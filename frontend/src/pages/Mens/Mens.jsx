@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CheckboxGroup,
   Input,
   Stack,
   Text,
@@ -22,13 +23,31 @@ import axios from "axios";
 import { Loader } from "../../component/Loader/Loader";
 
 import { getProductData } from "../../redux/Products/action";
+import { useSearchParams } from "react-router-dom";
 
 function Mens() {
   const [text, settext] = useState("");
   const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
   // -------------------------------------------------------------------------------
-  const [sortBy, setSortBy] = useState("discountPrice");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialFilterValues = searchParams.getAll("filter");
+  const initialSortValues = searchParams.getAll("sort");
+  const initialSortOrder = searchParams.getAll("order");
+  const [sortValues, setSortValues] = useState(initialSortValues);
+  const [filterValue, setFilterValue] = React.useState(
+    initialFilterValues || []
+  );
+  const [sortOrder, setSortOrder] = useState(initialSortOrder);
+
+  const handleFilterChange = (value) => {
+    setFilterValue(value);
+  };
+  const handleSortChange = (val) => {
+    setSortValues(val);
+  };
+
+  // const [sortBy, setSortBy] = useState("discountPrice");
+
   const [search, setSearch] = useState("");
   const [pages, setPage] = useState("1");
   const [pageSizes, setPageSize] = useState("15");
@@ -39,10 +58,19 @@ function Mens() {
   );
 
   useEffect(() => {
-    dispatch(
-      getProductData({ pages, pageSizes, sortBy, sortOrder, category, search })
-    );
-  }, [pages, search, sortBy, sortOrder]);
+    const params = {};
+    if (filterValue.length) params.filter = filterValue;
+    if (sortValues.length) params.sort = sortValues;
+    if (sortOrder.length) params.order = sortOrder;
+    console.log("parmas", params);
+    setSearchParams(params);
+  }, [filterValue, sortOrder, sortValues, setSearchParams]);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     getProductData({ pages, pageSizes, sortBy, sortOrder, category, search })
+  //   );
+  // }, [pages, search, sortOrder]);
   return (
     <>
       {isLargerThan800 ? <Navbar /> : <MobileNav />}
@@ -55,7 +83,7 @@ function Mens() {
           margin: "auto",
           gap: "80px",
           paddingBottom: "100px",
-          marginTop:"40px"
+          marginTop: "40px",
         }}
       >
         <Box
@@ -189,68 +217,69 @@ function Mens() {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    <Stack spacing={5} direction="column">
-                      <Checkbox
-                        value={"shoes"}
-                        onChange={""}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        Shoes
-                      </Checkbox>
-                      <Checkbox
-                        value={"jeans"}
-                        onChange={""}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        Jeans
-                      </Checkbox>
-                      <Checkbox
-                        value={"kit"}
-                        onChange={""}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        Men Kit
-                      </Checkbox>
-                      <Checkbox
-                        value={"tshirt"}
-                        onChange={""}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        T-Shirt
-                      </Checkbox>
-                      <Checkbox
-                        value={"pants"}
-                        onChange={""}
-                        borderRadius={"15px"}
-                        mt="5px"
-                        padding="10px"
-                        fontSize={"17px"}
-                        border={"1px solid rgb(240,240,240)"}
-                        colorScheme="green"
-                      >
-                        Pants
-                      </Checkbox>
-                    </Stack>
+                    <CheckboxGroup
+                      colorScheme="green"
+                      value={filterValue}
+                      onChange={handleFilterChange}
+                    >
+                      <Stack spacing={5} direction="column">
+                        <Checkbox
+                          value={"shoes"}
+                          borderRadius={"15px"}
+                          mt="5px"
+                          padding="10px"
+                          fontSize={"17px"}
+                          border={"1px solid rgb(240,240,240)"}
+                          colorScheme="green"
+                        >
+                          Shoes
+                        </Checkbox>
+                        <Checkbox
+                          value={"jeans"}
+                          borderRadius={"15px"}
+                          mt="5px"
+                          padding="10px"
+                          fontSize={"17px"}
+                          border={"1px solid rgb(240,240,240)"}
+                          colorScheme="green"
+                        >
+                          Jeans
+                        </Checkbox>
+                        <Checkbox
+                          value={"kit"}
+                          borderRadius={"15px"}
+                          mt="5px"
+                          padding="10px"
+                          fontSize={"17px"}
+                          border={"1px solid rgb(240,240,240)"}
+                          colorScheme="green"
+                        >
+                          Men Kit
+                        </Checkbox>
+                        <Checkbox
+                          value={"tshirt"}
+                          borderRadius={"15px"}
+                          mt="5px"
+                          padding="10px"
+                          fontSize={"17px"}
+                          border={"1px solid rgb(240,240,240)"}
+                          colorScheme="green"
+                        >
+                          T-Shirt
+                        </Checkbox>
+                        <Checkbox
+                          value={"pants"}
+                          borderRadius={"15px"}
+                          mt="5px"
+                          padding="10px"
+                          fontSize={"17px"}
+                          border={"1px solid rgb(240,240,240)"}
+                          colorScheme="green"
+                        >
+                          Pants
+                        </Checkbox>
+                      </Stack>
+                    </CheckboxGroup>
                   </AccordionPanel>
                 </AccordionItem>
 
@@ -639,7 +668,7 @@ function Mens() {
             <div>
               <label htmlFor="sort-select">Sort by Category:</label>
               <select
-                onChange={(e) => setSortBy(e.target.value)}
+                // onChange={(e) => setSortBy(e.target.value)}
                 id="sort-select"
               >
                 <option value="">Select Price</option>

@@ -20,23 +20,26 @@ productRoute.get("/:category", async (req, res) => {
     const startIndex = (page - 1) * pageSize;
     const order = req.query.order || "asc";
     const sortBy = req.query.sortBy || "discountPrice";
+
+    //Main Query object
     let query = {};
 
+    //For searching functionality
     if (search) {
       query.title = { $regex: search, $options: "i" };
     }
-    const total = await ProductModel.find({
-      category: req.params.category,
-    }).countDocuments(query);
-    const sortQuery = {};
 
+    //For sorting functionality
+    const sortQuery = {};
     if (sortBy) {
       sortQuery[sortBy] = order === "asc" ? 1 : -1;
     }
 
-    console.log(sortQuery);
-
+    // For pagination functionality
     const totalPages = Math.ceil(total / pageSize);
+    const total = await ProductModel.find({
+      category: req.params.category,
+    }).countDocuments(query);
 
     const allProduct = await ProductModel.find(
       { category: req.params.category },
@@ -91,7 +94,6 @@ productRoute.put("/update/:_id", async (req, res) => {
     res.status(400).send(err);
   }
 });
-
 
 productRoute.delete("/delete/:_id", async (req, res) => {
   const { _id } = req.params;

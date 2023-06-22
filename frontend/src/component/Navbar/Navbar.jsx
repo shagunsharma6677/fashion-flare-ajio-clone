@@ -4,17 +4,15 @@ import { BsFillBagCheckFill, BsFillSuitHeartFill } from "react-icons/bs";
 import Menuitem from "./MenuItem";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Logo2 from "../../assets/Images/Style-Savvy.png"
+import Logo2 from "../../assets/Images/Style-Savvy.png";
 import { SidebarContext } from "../context/SidebarContextProvider";
 import axios from "axios";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCartData, getWishlistData } from "../../redux/Cart/action";
 const Navbar = ({ setDone }) => {
   // console.log(cartlength)
   let user = JSON.parse(localStorage.getItem("user"));
   let loginValue = JSON.parse(localStorage.getItem("loginValue"));
-  
- 
 
   const dispatch = useDispatch();
   const CartData = useSelector((store) => store.CartReducer.cart);
@@ -24,30 +22,24 @@ const Navbar = ({ setDone }) => {
 
   const navigate = useNavigate();
 
-  const { setCategory } =
-    useContext(SidebarContext);
+  const { setCategory } = useContext(SidebarContext);
 
   const handleLogout = () => {
-
     localStorage.removeItem("loginValue");
     localStorage.removeItem("user");
-    navigate('/login')
-
-  }
+    navigate("/login");
+  };
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      navigate(`/querypage/${e.target.value}`)
-
+      navigate(`/querypage/${e.target.value}`);
     }
-  }
+  };
 
   useEffect(() => {
-   
-    dispatch(getCartData())
-    dispatch(getWishlistData())
-  }, [])
-
+    dispatch(getCartData());
+    dispatch(getWishlistData());
+  }, []);
 
   return (
     <div>
@@ -63,11 +55,7 @@ const Navbar = ({ setDone }) => {
       >
         <Box>
           <Link to="/">
-            <Image
-              src={Logo2}
-              width="111px"
-              
-            ></Image>
+            <Image src={Logo2} width="111px"></Image>
           </Link>
         </Box>
         <Box>
@@ -500,7 +488,6 @@ const Navbar = ({ setDone }) => {
                           <Text cursor={"po"}>Play Time</Text>
                         </Box>
                       </Flex>
-
                     </Box>
                   }
                 />
@@ -508,37 +495,45 @@ const Navbar = ({ setDone }) => {
             </Link>
 
             <Box>
-
               {/* <Input value={search} onKeyPress={setDone(search)} onChange={(e) => setSearch(e.target.value)} placeholder={"SEARCH"} borderRadius="20px"></Input> */}
             </Box>
 
             <Box>
               {/* <Button  >{login || user.name ? "LOGOUT" : "SIGN IN"}</Button> */}
-              {loginValue !== null ? <Button colorScheme='red' onClick={handleLogout} >LOGOUT</Button> : <Link to="/login" ><Button colorScheme='green'>Login</Button></Link>}
+              {loginValue !== null ? (
+                <Button colorScheme="red" onClick={handleLogout}>
+                  LOGOUT
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button colorScheme="green">Login</Button>
+                </Link>
+              )}
             </Box>
 
-
-            {loginValue ? <Text as="b" >{user.name}</Text> : null}
+            {loginValue ? <Text as="b">{user.name}</Text> : null}
             <Link to="/cart">
-              <Box display="flex" gap={'2'}  >
+              <Box display="flex" gap={"2"}>
                 <BsFillBagCheckFill style={{ fontSize: "30px" }} />
-                <Text alignSelf={"end"} as="b" >{CartData.length}</Text>
+                <Text alignSelf={"end"} as="b">
+                  {CartData.length}
+                </Text>
               </Box>
             </Link>
 
             <Link to="/wishlist">
-              <Box display="flex" gap={'2'}  >
+              <Box display="flex" gap={"2"}>
                 <BsFillSuitHeartFill style={{ fontSize: "28px" }} />
-                <Text alignSelf={"end"} as="b" >{WishlistData.length }</Text>
+                <Text alignSelf={"end"} as="b">
+                  {WishlistData.length}
+                </Text>
               </Box>
             </Link>
           </Flex>
-
         </Box>
       </Flex>
     </div>
   );
 };
-
 
 export default Navbar;
