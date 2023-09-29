@@ -1,16 +1,25 @@
-# feigned-copper-2423
-# Project Title : Style Savvy (Ajio.com Clone) Website
+# Project Title: Style Savvy (Ajio.com Clone) Website
 
-This repo is the clone of ajio.com website,AJIO is a shopping and lifestyle brand which is the ultimate destination for the latest fashion styles that are handpicked and are available at the best price that one can find anywhere. 
+![Project Banner](add_your_banner_image_url_here)
 
-### * Tech Stack
+This repository is a clone of the [Ajio.com](https://www.ajio.com/) website. AJIO is a shopping and lifestyle brand that offers the latest fashion styles at competitive prices.
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Team Members](#team-members)
+- [Screenshots](#screenshots)
+- [Schemas](#schemas)
+- [Getting Started](#getting-started)
+- [License](#license)
+
+## Tech Stack
 
 - React
 - Redux
 - Chakra UI
 
-
-### * Team-Members
+## Team Members
 
 - Shashank Bijapur (Team Lead)
 - Shagun Sharma
@@ -18,39 +27,125 @@ This repo is the clone of ajio.com website,AJIO is a shopping and lifestyle bran
 - Vishal More
 - Supriya Sahoo
 
-## Some Screenshots of our Project :-
+## Screenshots
 
-### * Sign-In page
+### Sign-In page
 
 ![auth](https://user-images.githubusercontent.com/108183568/236767661-d77f5b63-f922-4d80-ab12-6e344b8ec9af.jpeg)
 
-### * Home Page 
+### Home Page 
 
 ![pic1](https://user-images.githubusercontent.com/108183568/236765667-22793952-98bf-4617-9b41-4ef0ac0ffe36.jpeg)
 
-### * Navbar and Drop down
+### Navbar and Drop-down
 
 ![nav1](https://user-images.githubusercontent.com/108183568/236766244-41b4e838-054e-4ed3-93f3-8c8e79ce0a47.jpeg)
 
-### * Mens page
+### Men's Page
 
 ![mens](https://user-images.githubusercontent.com/108183568/236766687-9db79b6b-63ed-49ab-aa31-75766f7a7381.jpeg)
 
-### * Products detail page
+### Product Detail Page
 
 ![detail](https://user-images.githubusercontent.com/108183568/236767281-076b1633-c925-499e-9eaf-479082a1d026.jpeg)
 
-### * Cart page
+### Cart Page
 
 ![cart](https://user-images.githubusercontent.com/108183568/236769897-69b75e3a-9d1f-4c52-91c9-eb1887f92314.jpeg)
 
-### * Payment page
+### Payment Page
 
 ![payment](https://user-images.githubusercontent.com/108183568/236770330-3844a281-8822-4c97-909a-d2e8b65d9bc7.jpeg)
 
-### * Footer 
+### Footer 
 
 ![footer](https://user-images.githubusercontent.com/108183568/236771153-3f717803-6964-4150-a967-a7aedf632397.jpeg)
 
 
+## Schemas
 
+### Cart Schema
+
+\`\`\`javascript
+const mongoose = require("mongoose");
+const cartSchema = new mongoose.Schema({
+  src: { type: String },
+  brand: { type: String },
+  category: { type: String },
+  title: { type: String },
+  discountPrice: { type: String },
+  orginalPrice: { type: String },
+  discount: { type: String },
+  offer: { type: String },
+  quantity: { type: Number }
+});
+
+const CartModel = mongoose.model("cart", cartSchema);
+
+module.exports = { CartModel };
+\`\`\`
+
+### Product Schema
+
+\`\`\`javascript
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema({
+  src: String,
+  brand: String,
+  category: String,
+  title: String,
+  discountPrice: String,
+  orginalPrice: String,
+  discount: String,
+  offer: String,
+  genre: [String],
+  rating: String,
+});
+
+const ProductModel = mongoose.model("product", productSchema);
+
+module.exports = { ProductModel };
+\`\`\`
+
+### User Schema
+
+\`\`\`javascript
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema(
+  {
+    email: String,
+    password: String,
+    name: String,
+  },
+  {
+    versionKey: false,
+  }
+);
+
+const UserModel = mongoose.model("user", userSchema);
+
+module.exports = { UserModel };
+\`\`\`
+
+### Wishlist Schema
+
+\`\`\`javascript
+const mongoose = require("mongoose");
+
+const wishlistSchema = new mongoose.Schema({
+  src: { type: String },
+  brand: { type: String },
+  category: { type: String },
+  title: { type: String },
+  discountPrice: { type: String },
+  orginalPrice: { type: String },
+  discount: { type: String },
+  offer: { type: String },
+});
+
+const WishlistModel = mongoose.model("wishlist", wishlistSchema);
+
+module.exports = { WishlistModel };
+\`\`\`
