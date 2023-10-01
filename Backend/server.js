@@ -15,6 +15,7 @@ i18n.configure({
     directory: __dirname + '/app/locales',
     defaultLocale: 'en',
 });
+
 //App intitialization 
 db = mongoose();
 const app = express();
